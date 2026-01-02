@@ -8,10 +8,18 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        sans: ['"PT Sans"', 'sans-serif'],
+        body: ['"PT Sans"', 'sans-serif'],
+        headline: ['"PT Sans"', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -55,16 +63,6 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -88,10 +86,30 @@ export default {
             height: '0',
           },
         },
+        glow: {
+            '0%, 100%': {
+                borderColor: 'hsl(var(--primary) / 0.8)',
+                boxShadow: '0 0 35px hsl(var(--primary) / 0.7), 0 0 50px hsl(var(--accent) / 0.3)',
+            },
+            '50%': {
+                borderColor: 'hsl(var(--accent) / 0.8)',
+                boxShadow: '0 0 50px hsl(var(--accent) / 0.7), 0 0 80px hsl(var(--primary) / 0.5)',
+            },
+        },
+        'text-glow': {
+          '0%, 100%': {
+            textShadow: '0 0 20px hsl(var(--primary) / 1), 0 0 45px hsl(var(--accent) / 0.9)',
+          },
+          '50%': {
+            textShadow: '0 0 40px hsl(var(--primary) / 1), 0 0 70px hsl(var(--accent) / 1)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        glow: 'glow 3.5s infinite ease-in-out',
+        'text-glow': 'text-glow 3.5s infinite ease-in-out',
       },
     },
   },

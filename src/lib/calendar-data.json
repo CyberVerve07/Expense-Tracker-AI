@@ -1,0 +1,245 @@
+
+{
+    "events": [
+        {
+            "date": "2026-01-01",
+            "name": "New Year's Day",
+            "type": "holiday",
+            "icon": "PartyPopper"
+        },
+        {
+            "date": "2026-01-13",
+            "name": "Lohri",
+            "type": "holiday",
+            "icon": "PartyPopper"
+        },
+        {
+            "date": "2026-01-14",
+            "name": "Makar Sankranti / Pongal",
+            "type": "holiday",
+            "icon": "Sun"
+        },
+        {
+            "date": "2026-01-26",
+            "name": "Republic Day",
+            "type": "holiday",
+            "icon": "Flag"
+        },
+        {
+            "date": "2026-02-02",
+            "name": "Vasant Panchami",
+            "type": "holiday",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-02-05",
+            "name": "Hazarat Ali's Birthday",
+            "type": "holiday",
+            "icon": "Moon"
+        },
+        {
+            "date": "2026-02-25",
+            "name": "Maha Shivaratri",
+            "type": "holiday",
+            "icon": "Mountain"
+        },
+        {
+            "date": "2026-03-05",
+            "name": "Dayanand Saraswati Jayanti",
+            "type": "event",
+            "icon": "PersonStanding"
+        },
+        {
+            "date": "2026-03-15",
+            "name": "Holika Dahan",
+            "type": "event",
+            "icon": "Palette"
+        },
+        {
+            "date": "2026-03-16",
+            "name": "Holi",
+            "type": "holiday",
+            "icon": "Palette"
+        },
+        {
+            "date": "2026-03-21",
+            "name": "Gudi Padwa",
+            "type": "holiday",
+            "icon": "Flag"
+        },
+        {
+            "date": "2026-03-30",
+            "name": "Ram Navami",
+            "type": "holiday",
+            "icon": "Mountain"
+        },
+        {
+            "date": "2026-03-30",
+            "name": "Eid al-Fitr",
+            "type": "holiday",
+            "icon": "Moon"
+        },
+        {
+            "date": "2026-04-03",
+            "name": "Good Friday",
+            "type": "holiday",
+            "icon": "HeartHandshake"
+        },
+        {
+            "date": "2026-04-14",
+            "name": "Ambedkar Jayanti",
+            "type": "holiday",
+            "icon": "PersonStanding"
+        },
+        {
+            "date": "2026-04-24",
+            "name": "Jamat Ul-vida",
+            "type": "holiday",
+            "icon": "Moon"
+        },
+        {
+            "date": "2026-05-09",
+            "name": "Rabindranath Tagore's Birthday",
+            "type": "event",
+            "icon": "Cake"
+        },
+        {
+            "date": "2026-06-06",
+            "name": "Bakrid / Eid al-Adha",
+            "type": "holiday",
+            "icon": "Moon"
+        },
+        {
+            "date": "2026-06-18",
+            "name": "Jagannath Rath Yatra",
+            "type": "event",
+            "icon": "Mountain"
+        },
+        {
+            "date": "2026-08-15",
+            "name": "Independence Day",
+            "type": "holiday",
+            "icon": "Flag"
+        },
+        {
+            "date": "2026-08-28",
+            "name": "Raksha Bandhan",
+            "type": "holiday",
+            "icon": "HeartHandshake"
+        },
+        {
+            "date": "2026-08-31",
+            "name": "Onam",
+            "type": "holiday",
+            "icon": "PartyPopper"
+        },
+        {
+            "date": "2026-09-06",
+            "name": "Ganesh Chaturthi",
+            "type": "holiday",
+            "icon": "PartyPopper"
+        },
+        {
+            "date": "2026-10-02",
+            "name": "Mahatma Gandhi's Birthday",
+            "type": "holiday",
+            "icon": "PersonStanding"
+        },
+        {
+            "date": "2026-10-12",
+            "name": "Navratri Day 1",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-13",
+            "name": "Navratri Day 2",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-14",
+            "name": "Navratri Day 3",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-15",
+            "name": "Navratri Day 4",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-16",
+            "name": "Navratri Day 5",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-17",
+            "name": "Navratri Day 6",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-18",
+            "name": "Navratri Day 7",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-19",
+            "name": "Navratri Day 8",
+            "type": "event",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-10-20",
+            "name": "Dussehra / Navratri Day 9",
+            "type": "holiday",
+            "icon": "Target"
+        },
+        {
+            "date": "2026-10-29",
+            "name": "Karwa Chauth",
+            "type": "event",
+            "icon": "Moon"
+        },
+        {
+            "date": "2026-11-08",
+            "name": "Diwali",
+            "type": "holiday",
+            "icon": "Sparkles"
+        },
+        {
+            "date": "2026-11-09",
+            "name": "Govardhan Pooja",
+            "type": "event",
+            "icon": "Mountain"
+        },
+        {
+            "date": "2026-11-09",
+            "name": "Bhai Dooj",
+            "type": "holiday",
+            "icon": "HeartHandshake"
+        },
+        {
+            "date": "2026-12-25",
+            "name": "Christmas",
+            "type": "holiday",
+            "icon": "Gift"
+        },
+        {
+            "date": "2026-06-21",
+            "name": "Summer Solstice",
+            "type": "event",
+            "icon": "Sun"
+        },
+        {
+            "date": "2026-12-21",
+            "name": "Winter Solstice",
+            "type": "event",
+            "icon": "Snowflake"
+        }
+    ]
+}

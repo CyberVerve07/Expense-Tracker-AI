@@ -1,80 +1,61 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 210 40% 96.1%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 210 40% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 210 40% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 91.2%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 91.2%;
+    --muted-foreground: 215.4 16.3% 36.9%;
+    --accent: 350 89% 60%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 221.2 83.2% 53.3%;
+    --chart-2: 350 89% 60%;
+    --chart-3: 160 70% 45%;
+    --chart-4: 30 90% 55%;
+    --chart-5: 280 70% 50%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 75.1%;
+    --accent: 350 89% 60%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217.2 91.2% 59.8%;
+    --chart-1: 217.2 91.2% 59.8%;
+    --chart-2: 350 89% 60%;
+    --chart-3: 160 70% 45%;
+    --chart-4: 30 90% 55%;
+    --chart-5: 280 70% 50%;
   }
 }
 
@@ -85,4 +66,180 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+    .snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 10% 20%, white 2px, transparent 2px),
+            radial-gradient(circle at 50% 30%, white 3px, transparent 3px),
+            radial-gradient(circle at 90% 40%, white 2px, transparent 2px),
+            radial-gradient(circle at 30% 50%, white 3px, transparent 3px),
+            radial-gradient(circle at 70% 60%, white 2px, transparent 2px),
+            radial-gradient(circle at 20% 70%, white 3px, transparent 3px),
+            radial-gradient(circle at 60% 80%, white 2px, transparent 2px),
+            radial-gradient(circle at 80% 90%, white 3px, transparent 3px),
+            radial-gradient(circle at 15% 5%, white 2px, transparent 2px),
+            radial-gradient(circle at 65% 15%, white 3px, transparent 3px),
+            radial-gradient(circle at 40% 85%, white 2px, transparent 2px),
+            radial-gradient(circle at 25% 10%, white 3px, transparent 3px),
+            radial-gradient(circle at 55% 50%, white 2px, transparent 2px),
+            radial-gradient(circle at 85% 70%, white 3px, transparent 3px),
+            radial-gradient(circle at 5% 40%, white 2px, transparent 2px),
+            radial-gradient(circle at 45% 25%, white 2px, transparent 2px),
+            radial-gradient(circle at 75% 5%, white 3px, transparent 3px);
+        background-size: 60px 60px;
+        animation: snow-fall 6s linear infinite;
+        pointer-events: none;
+        opacity: 0.95;
+    }
+
+    @keyframes snow-fall {
+        0% {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100px);
+            opacity: 0;
+            background-position: 50px 150px, 60px 160px, 70px 170px, 80px 180px, 90px 190px, 100px 200px, 110px 210px, 120px 220px, 130px 230px, 140px 240px, 150px 250px, 45px 145px, 65px 165px, 85px 185px, 5px 145px;
+        }
+    }
+    
+    .spring-petals {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 15% 25%, #FFB6C1 5px, transparent 5px),
+            radial-gradient(circle at 55% 35%, #FFC0CB 6px, transparent 6px),
+            radial-gradient(circle at 85% 45%, #FFB6C1 5px, transparent 5px),
+            radial-gradient(circle at 35% 55%, #FFC0CB 6px, transparent 6px),
+            radial-gradient(circle at 75% 65%, #FFB6C1 5px, transparent 5px);
+        background-size: 100px 100px;
+        animation: petals-fall 10s linear infinite;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    @keyframes petals-fall {
+        0% {
+            transform: translateY(-100px) rotate(0deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .summer-heatwave {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,223,0,0.1) 25%, transparent 25%),
+                    linear-gradient(225deg, rgba(255,223,0,0.1) 25%, transparent 25%),
+                    linear-gradient(45deg, rgba(255,165,0,0.1) 25%, transparent 25%),
+                    linear-gradient(315deg, rgba(255,165,0,0.1) 25%, transparent 25%);
+        background-size: 100px 100px;
+        animation: heatwave 5s linear infinite;
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+    @keyframes heatwave {
+        0% { background-position: 0 0, 0 0, 0 0, 0 0; opacity: 0; }
+        25% { opacity: 0.6; }
+        50% { background-position: 50px 50px, -50px 50px, 50px -50px, -50px -50px; opacity: 0.4; }
+        75% { opacity: 0.6; }
+        100% { background-position: 0 0, 0 0, 0 0, 0 0; opacity: 0; }
+    }
+    
+    .monsoon-umbrellas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="%2360A5FA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12a10.06 10.06 1 0 0-20 0Z"/><path d="M12 12v8a2 2 0 0 0 4 0"/><path d="M12 2v1"/></svg>');
+        background-size: 100px 100px;
+        animation: umbrella-fall 12s linear infinite;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+    
+    @keyframes umbrella-fall {
+        0% {
+            transform: translateY(-100px) rotate(-20deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100px) rotate(20deg);
+            opacity: 0;
+        }
+    }
+
+    .autumn-leaves {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23D97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 22L2 22"></path><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 9.24879 20.9427 6.75487 19.2319 4.93181"></path><path d="M22 2L12 12"></path></svg>'),
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23F59E0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 22L2 22"></path><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 9.24879 20.9427 6.75487 19.2319 4.93181"></path><path d="M22 2L12 12"></path></svg>');
+        background-size: 80px 80px, 120px 120px;
+        background-position: 0px 0px, 40px 40px;
+        animation: leaves-fall 15s linear infinite;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    @keyframes leaves-fall {
+        0% {
+            transform: translateY(-100px) rotate(0deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(150px) rotate(270deg);
+            opacity: 0;
+        }
+    }
+
+    .particles-bg {
+        background: #0a0a0a;
+        background-image:
+            radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+            radial-gradient(hsl(var(--accent) / 0.1) 1px, transparent 1px);
+        background-size: 60px 60px, 140px 140px;
+        background-position: 0 0, 30px 30px;
+        animation: particles-move 15s linear infinite;
+    }
+
+    @keyframes particles-move {
+        from { background-position: 0 0, 30px 30px; }
+        to { background-position: 360px 360px, 390px 390px; }
+    }
 }
