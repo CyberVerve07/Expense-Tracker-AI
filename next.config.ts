@@ -31,10 +31,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // This block makes server-side environment variables available to the app.
-  env: {
-    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-  },
 };
 
 export default nextConfig;

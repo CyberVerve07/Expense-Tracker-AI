@@ -103,7 +103,7 @@ export default function AuthPage() {
       })
       .catch(handleAuthError)
       .finally(() => setIsSubmitting(false));
-  }, [auth, router, isSubmitting, toast]);
+  }, [auth, router, toast]);
 
   useEffect(() => {
     if (!isUserLoading && user) {

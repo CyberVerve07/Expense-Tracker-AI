@@ -146,19 +146,6 @@ export default function CalendarView() {
   };
 
   const handleDayClick = (dayDate: Date) => {
-    const today = startOfDay(new Date());
-    
-    // For demonstration in 2024, we treat all of 2026 as clickable.
-    // In a real scenario, you might want to prevent clicking future/past dates.
-    const isPastDay = isBefore(dayDate, today) && !isSameDay(dayDate, today);
-
-    // Make all days clickable for demonstration, but you could re-add restrictions here.
-    // if (isPastDay) {
-    //     return; // Do nothing for past days if you want to restrict it
-    // }
-    
-    // The form can now be opened by any user. The form itself will handle
-    // the logic of whether the user can save data or not.
     setSelectedDate(dayDate);
     setIsDialogOpen(true);
   }
@@ -227,7 +214,6 @@ export default function CalendarView() {
                     const dayOfWeek = dayDate.getDay();
                     const dayEvents = eventsForMonth.filter(e => new Date(e.date).getDate() === day);
                     const isToday = isSameDay(dayDate, today);
-                    const isPastDay = isBefore(dayDate, today) && !isToday;
 
                     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
                     const isDayLogged = loggedDays.has(formatDateToId(dayDate));
@@ -240,7 +226,6 @@ export default function CalendarView() {
                         isDiwali && 'animate-glow',
                         isDayLogged && 'border-green-500 bg-green-500/10',
                         isToday && 'animate-glow',
-                        // isPastDay && 'opacity-50 bg-background/20 cursor-not-allowed', // Removed for demo purposes
                     );
 
                     return (
