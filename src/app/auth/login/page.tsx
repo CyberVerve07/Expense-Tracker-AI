@@ -40,6 +40,7 @@ const formSchema = z.object({
 
 export default function AuthPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCheckingRedirect, setIsCheckingRedirect] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
   const { auth, user, isUserLoading } = useFirebase();
@@ -51,7 +52,7 @@ export default function AuthPage() {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const handleAuthError = (error: any) => {
+  const handleAuthError = (error: any, context: 'redirect' | 'form') => {
     let title = "Authentication Failed";
     let description = error.message || "An unexpected error occurred. Please try again.";
 
@@ -87,13 +88,18 @@ export default function AuthPage() {
             break;
     }
     toast({ variant: "destructive", title, description });
-    setIsSubmitting(false);
+    
+    if (context === 'form') {
+      setIsSubmitting(false);
+    }
   };
   
   useEffect(() => {
-    if (!auth || isSubmitting) return;
-    
-    setIsSubmitting(true);
+    if (!auth) {
+      setIsCheckingRedirect(false);
+      return;
+    };
+
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
@@ -101,15 +107,17 @@ export default function AuthPage() {
           router.push('/');
         }
       })
-      .catch(handleAuthError)
-      .finally(() => setIsSubmitting(false));
+      .catch((error) => handleAuthError(error, 'redirect'))
+      .finally(() => {
+        setIsCheckingRedirect(false)
+      });
   }, [auth, router, toast]);
 
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isUserLoading && !isCheckingRedirect && user) {
       router.push("/");
     }
-  }, [user, isUserLoading, router]);
+  }, [user, isUserLoading, isCheckingRedirect, router]);
 
   const handleGoogleSignIn = async () => {
     if (!auth) return;
@@ -125,7 +133,7 @@ export default function AuthPage() {
             toast({ title: "Signed in successfully!" });
             router.push('/');
         })
-        .catch(handleAuthError)
+        .catch((error) => handleAuthError(error, 'form'))
         .finally(() => setIsSubmitting(false));
   };
 
@@ -137,11 +145,11 @@ export default function AuthPage() {
             toast({ title: "Account created successfully!" });
             router.push('/');
         })
-        .catch(handleAuthError)
+        .catch((error) => handleAuthError(error, 'form'))
         .finally(() => setIsSubmitting(false));
   };
 
-  if (isUserLoading || user) {
+  if (isUserLoading || isCheckingRedirect || user) {
     return (
         <div className="flex items-center justify-center min-h-screen p-4 bg-[#0a0a0a]">
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
