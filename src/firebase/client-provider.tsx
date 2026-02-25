@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, type ReactNode } from 'react';
-import { FirebaseProvider } from '@/firebase/provider';
+import { FirebaseProvider, FirebaseContext } from '@/firebase/provider';
 import { initializeFirebase } from '@/firebase';
 
 interface FirebaseClientProviderProps {
@@ -16,9 +16,23 @@ export function FirebaseClientProvider({ children }: FirebaseClientProviderProps
   }, []); // Empty dependency array ensures this runs only once on mount
 
   // If Firebase is not initialized (e.g., during build/SSR or missing API key),
-  // render children without Firebase services - they'll be available on client
+  // provide a mock empty context so `useFirebase` hooks don't throw during SSR
   if (!firebaseServices) {
-    return <>{children}</>;
+    return (
+      <FirebaseContext.Provider
+        value={{
+          areServicesAvailable: false,
+          firebaseApp: null,
+          firestore: null,
+          auth: null,
+          user: null,
+          isUserLoading: true, // we leave it loading so it handles layout gracefully
+          userError: null
+        }}
+      >
+        {children}
+      </FirebaseContext.Provider>
+    );
   }
 
   return (
