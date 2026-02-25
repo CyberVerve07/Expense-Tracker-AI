@@ -6,6 +6,9 @@ import DiaryAnalysis from './diary-analysis';
 import ExpenseAnalysis from './expense-analysis';
 import WellnessInsights from './wellness-insights';
 import HeroSection from './hero-section';
+import GoalTracker from './goal-tracker';
+import HabitTracker from './habit-tracker';
+import BudgetAlerts from './budget-alerts';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState('diary');
@@ -22,6 +25,13 @@ export default function Dashboard() {
             </div>
 
             <HeroSection />
+
+            {/* New Features Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <GoalTracker />
+                <HabitTracker />
+                <BudgetAlerts />
+            </div>
 
             <div>
                 <h2 className="text-3xl font-bold font-headline text-center mb-8">Get Your Analysis</h2>

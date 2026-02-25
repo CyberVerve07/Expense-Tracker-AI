@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Calendar, LogIn, LogOut, User as UserIcon, LayoutDashboard } from 'lucide-react';
@@ -17,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import { ThemeToggle } from '../theme-toggle';
 
 export default function Header() {
   const { user, auth, isUserLoading } = useFirebase();
@@ -50,6 +50,7 @@ export default function Header() {
             <Link href="/" className={navLinkClasses('/')}>
                 Calendar
             </Link>
+            <ThemeToggle />
             {isUserLoading ? (
                 <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
             ) : user ? (
