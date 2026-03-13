@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Calendar, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { useFirebase } from '@/firebase';
@@ -22,6 +23,11 @@ export default function Header() {
   const { user, auth, isUserLoading } = useFirebase();
   const router = useRouter();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSignOut = async () => {
       if (!auth) {
