@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult, createUserWithEmailAndPassword, signInWithEmailAndPassword, type AuthError } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -52,7 +52,7 @@ export default function AuthPage() {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const handleAuthError = (error: any, context: 'redirect' | 'form') => {
+  const handleAuthError = (error: AuthError, context: 'redirect' | 'form') => {
     let title = "Authentication Failed";
     let description = error.message || "An unexpected error occurred. Please try again.";
 
@@ -129,7 +129,7 @@ export default function AuthPage() {
     if (!auth) return;
     setIsSubmitting(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
-        .then(userCredential => {
+        .then(() => {
             toast({ title: "Signed in successfully!" });
             router.push('/');
         })
@@ -141,7 +141,7 @@ export default function AuthPage() {
     if (!auth) return;
     setIsSubmitting(true);
     createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then(userCredential => {
+        .then(() => {
             toast({ title: "Account created successfully!" });
             router.push('/');
         })
@@ -168,6 +168,11 @@ export default function AuthPage() {
           <CardDescription className="text-gray-300 text-base">
             Unlock AI-powered insights for your financial wellness.
           </CardDescription>
+          {!auth && (
+            <p className="text-sm text-amber-300">
+              Firebase config missing hai. Login tab tak kaam nahi karega jab tak `NEXT_PUBLIC_FIREBASE_*` env values set na ho.
+            </p>
+          )}
         </CardHeader>
         <CardContent className="space-y-6 pt-4">
             <Tabs defaultValue="signin" className="w-full">
@@ -187,7 +192,7 @@ export default function AuthPage() {
                             <Input id="password-signin" type="password" {...form.register("password")} />
                             {form.formState.errors.password && <p className="text-xs text-red-400">{form.formState.errors.password.message}</p>}
                         </div>
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full" disabled={isSubmitting || !auth}>
                             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                             Sign In
                         </Button>
@@ -205,7 +210,7 @@ export default function AuthPage() {
                             <Input id="password-signup" type="password" {...form.register("password")} />
                              {form.formState.errors.password && <p className="text-xs text-red-400">{form.formState.errors.password.message}</p>}
                         </div>
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full" disabled={isSubmitting || !auth}>
                              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                              Sign Up
                         </Button>
@@ -223,7 +228,7 @@ export default function AuthPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-6">
-                <Button variant="outline" className="w-full h-14 text-lg bg-black/20 text-white hover:bg-white hover:text-black border-gray-600 hover:border-white transition-all duration-300 group" onClick={handleGoogleSignIn} disabled={isSubmitting}>
+                <Button variant="outline" className="w-full h-14 text-lg bg-black/20 text-white hover:bg-white hover:text-black border-gray-600 hover:border-white transition-all duration-300 group" onClick={handleGoogleSignIn} disabled={isSubmitting || !auth}>
                     {isSubmitting ? <Loader2 className="mr-3 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />}
                     Login with Google
                 </Button>

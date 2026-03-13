@@ -2,7 +2,7 @@
 
 import React, { useMemo, type ReactNode } from 'react';
 import { FirebaseProvider, FirebaseContext } from '@/firebase/provider';
-import { initializeFirebase } from '@/firebase';
+import { initializeFirebase } from '@/firebase/init';
 
 interface FirebaseClientProviderProps {
   children: ReactNode;
@@ -26,7 +26,7 @@ export function FirebaseClientProvider({ children }: FirebaseClientProviderProps
           firestore: null,
           auth: null,
           user: null,
-          isUserLoading: true, // we leave it loading so it handles layout gracefully
+          isUserLoading: false,
           userError: null
         }}
       >

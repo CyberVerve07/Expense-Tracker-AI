@@ -1,245 +1,452 @@
-
 {
-    "events": [
-        {
-            "date": "2026-01-01",
-            "name": "New Year's Day",
-            "type": "holiday",
-            "icon": "PartyPopper"
-        },
-        {
-            "date": "2026-01-13",
-            "name": "Lohri",
-            "type": "holiday",
-            "icon": "PartyPopper"
-        },
-        {
-            "date": "2026-01-14",
-            "name": "Makar Sankranti / Pongal",
-            "type": "holiday",
-            "icon": "Sun"
-        },
-        {
-            "date": "2026-01-26",
-            "name": "Republic Day",
-            "type": "holiday",
-            "icon": "Flag"
-        },
-        {
-            "date": "2026-02-02",
-            "name": "Vasant Panchami",
-            "type": "holiday",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-02-05",
-            "name": "Hazarat Ali's Birthday",
-            "type": "holiday",
-            "icon": "Moon"
-        },
-        {
-            "date": "2026-02-25",
-            "name": "Maha Shivaratri",
-            "type": "holiday",
-            "icon": "Mountain"
-        },
-        {
-            "date": "2026-03-05",
-            "name": "Dayanand Saraswati Jayanti",
-            "type": "event",
-            "icon": "PersonStanding"
-        },
-        {
-            "date": "2026-03-15",
-            "name": "Holika Dahan",
-            "type": "event",
-            "icon": "Palette"
-        },
-        {
-            "date": "2026-03-16",
-            "name": "Holi",
-            "type": "holiday",
-            "icon": "Palette"
-        },
-        {
-            "date": "2026-03-21",
-            "name": "Gudi Padwa",
-            "type": "holiday",
-            "icon": "Flag"
-        },
-        {
-            "date": "2026-03-30",
-            "name": "Ram Navami",
-            "type": "holiday",
-            "icon": "Mountain"
-        },
-        {
-            "date": "2026-03-30",
-            "name": "Eid al-Fitr",
-            "type": "holiday",
-            "icon": "Moon"
-        },
-        {
-            "date": "2026-04-03",
-            "name": "Good Friday",
-            "type": "holiday",
-            "icon": "HeartHandshake"
-        },
-        {
-            "date": "2026-04-14",
-            "name": "Ambedkar Jayanti",
-            "type": "holiday",
-            "icon": "PersonStanding"
-        },
-        {
-            "date": "2026-04-24",
-            "name": "Jamat Ul-vida",
-            "type": "holiday",
-            "icon": "Moon"
-        },
-        {
-            "date": "2026-05-09",
-            "name": "Rabindranath Tagore's Birthday",
-            "type": "event",
-            "icon": "Cake"
-        },
-        {
-            "date": "2026-06-06",
-            "name": "Bakrid / Eid al-Adha",
-            "type": "holiday",
-            "icon": "Moon"
-        },
-        {
-            "date": "2026-06-18",
-            "name": "Jagannath Rath Yatra",
-            "type": "event",
-            "icon": "Mountain"
-        },
-        {
-            "date": "2026-08-15",
-            "name": "Independence Day",
-            "type": "holiday",
-            "icon": "Flag"
-        },
-        {
-            "date": "2026-08-28",
-            "name": "Raksha Bandhan",
-            "type": "holiday",
-            "icon": "HeartHandshake"
-        },
-        {
-            "date": "2026-08-31",
-            "name": "Onam",
-            "type": "holiday",
-            "icon": "PartyPopper"
-        },
-        {
-            "date": "2026-09-06",
-            "name": "Ganesh Chaturthi",
-            "type": "holiday",
-            "icon": "PartyPopper"
-        },
-        {
-            "date": "2026-10-02",
-            "name": "Mahatma Gandhi's Birthday",
-            "type": "holiday",
-            "icon": "PersonStanding"
-        },
-        {
-            "date": "2026-10-12",
-            "name": "Navratri Day 1",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-13",
-            "name": "Navratri Day 2",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-14",
-            "name": "Navratri Day 3",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-15",
-            "name": "Navratri Day 4",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-16",
-            "name": "Navratri Day 5",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-17",
-            "name": "Navratri Day 6",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-18",
-            "name": "Navratri Day 7",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-19",
-            "name": "Navratri Day 8",
-            "type": "event",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-10-20",
-            "name": "Dussehra / Navratri Day 9",
-            "type": "holiday",
-            "icon": "Target"
-        },
-        {
-            "date": "2026-10-29",
-            "name": "Karwa Chauth",
-            "type": "event",
-            "icon": "Moon"
-        },
-        {
-            "date": "2026-11-08",
-            "name": "Diwali",
-            "type": "holiday",
-            "icon": "Sparkles"
-        },
-        {
-            "date": "2026-11-09",
-            "name": "Govardhan Pooja",
-            "type": "event",
-            "icon": "Mountain"
-        },
-        {
-            "date": "2026-11-09",
-            "name": "Bhai Dooj",
-            "type": "holiday",
-            "icon": "HeartHandshake"
-        },
-        {
-            "date": "2026-12-25",
-            "name": "Christmas",
-            "type": "holiday",
-            "icon": "Gift"
-        },
-        {
-            "date": "2026-06-21",
-            "name": "Summer Solstice",
-            "type": "event",
-            "icon": "Sun"
-        },
-        {
-            "date": "2026-12-21",
-            "name": "Winter Solstice",
-            "type": "event",
-            "icon": "Snowflake"
-        }
-    ]
+  "events": [
+    {
+      "date": "2026-01-01",
+      "name": "New Year's Day",
+      "type": "holiday",
+      "icon": "Sparkles",
+      "category": "Restricted",
+      "description": "Gregorian new year opening the 2026 calendar."
+    },
+    {
+      "date": "2026-01-03",
+      "name": "Hazarat Ali's Birthday",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Restricted",
+      "description": "Observed in India as a restricted holiday."
+    },
+    {
+      "date": "2026-01-14",
+      "name": "Lohri",
+      "type": "event",
+      "icon": "PartyPopper",
+      "category": "Festival",
+      "description": "North Indian harvest celebration on the eve of Maghi."
+    },
+    {
+      "date": "2026-01-14",
+      "name": "Makar Sankranti / Pongal",
+      "type": "holiday",
+      "icon": "Sun",
+      "category": "Restricted",
+      "description": "Solar harvest festival widely observed across India."
+    },
+    {
+      "date": "2026-01-26",
+      "name": "Republic Day",
+      "type": "holiday",
+      "icon": "Flag",
+      "category": "Gazetted",
+      "description": "National holiday marking the adoption of the Constitution."
+    },
+    {
+      "date": "2026-01-23",
+      "name": "Vasant Panchami",
+      "type": "holiday",
+      "icon": "Palette",
+      "category": "Restricted",
+      "description": "Festival associated with Saraswati Puja and the start of spring."
+    },
+    {
+      "date": "2026-02-01",
+      "name": "Guru Ravidas Jayanti",
+      "type": "holiday",
+      "icon": "Gift",
+      "category": "Restricted",
+      "description": "Restricted holiday honoring Guru Ravidas."
+    },
+    {
+      "date": "2026-02-12",
+      "name": "Maharishi Dayanand Saraswati Jayanti",
+      "type": "holiday",
+      "icon": "PersonStanding",
+      "category": "Restricted",
+      "description": "Restricted holiday marking the birth anniversary of Maharishi Dayanand."
+    },
+    {
+      "date": "2026-02-15",
+      "name": "Maha Shivaratri",
+      "type": "holiday",
+      "icon": "Mountain",
+      "category": "Restricted",
+      "description": "Important Hindu observance dedicated to Lord Shiva."
+    },
+    {
+      "date": "2026-02-19",
+      "name": "Shivaji Jayanti",
+      "type": "event",
+      "icon": "Target",
+      "category": "Observance",
+      "description": "Commemoration of Chhatrapati Shivaji Maharaj."
+    },
+    {
+      "date": "2026-03-03",
+      "name": "Holika Dahana",
+      "type": "holiday",
+      "icon": "Palette",
+      "category": "Restricted",
+      "description": "Bonfire ritual observed on the eve of Holi."
+    },
+    {
+      "date": "2026-03-04",
+      "name": "Holi",
+      "type": "holiday",
+      "icon": "Palette",
+      "category": "Gazetted",
+      "description": "Festival of colours celebrated across India."
+    },
+    {
+      "date": "2026-03-08",
+      "name": "Rang Panchami",
+      "type": "event",
+      "icon": "Palette",
+      "category": "Festival",
+      "description": "Popular post-Holi celebration in several regions."
+    },
+    {
+      "date": "2026-03-19",
+      "name": "Ugadi",
+      "type": "holiday",
+      "icon": "Gift",
+      "category": "Restricted",
+      "description": "Lunar new year for Telugu and Kannada communities."
+    },
+    {
+      "date": "2026-03-19",
+      "name": "Gudi Padwa",
+      "type": "holiday",
+      "icon": "Flag",
+      "category": "Restricted",
+      "description": "Maharashtrian new year festival."
+    },
+    {
+      "date": "2026-03-20",
+      "name": "Jamat Ul-Vida",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Restricted",
+      "description": "Last Friday of Ramadan observed as a restricted holiday."
+    },
+    {
+      "date": "2026-03-20",
+      "name": "March Equinox",
+      "type": "event",
+      "icon": "Sun",
+      "category": "Season",
+      "description": "Astronomical marker for the spring transition."
+    },
+    {
+      "date": "2026-03-21",
+      "name": "Eid al-Fitr",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Tentative moon-sighting based holiday marking the end of Ramadan."
+    },
+    {
+      "date": "2026-03-26",
+      "name": "Rama Navami",
+      "type": "holiday",
+      "icon": "Mountain",
+      "category": "Gazetted",
+      "description": "Celebrates the birth of Lord Rama."
+    },
+    {
+      "date": "2026-03-31",
+      "name": "Mahavir Jayanti",
+      "type": "holiday",
+      "icon": "PersonStanding",
+      "category": "Gazetted",
+      "description": "Birth anniversary of Lord Mahavir."
+    },
+    {
+      "date": "2026-04-03",
+      "name": "Good Friday",
+      "type": "holiday",
+      "icon": "HeartHandshake",
+      "category": "Gazetted",
+      "description": "Christian observance commemorating the crucifixion of Jesus Christ."
+    },
+    {
+      "date": "2026-04-14",
+      "name": "Vaisakhi",
+      "type": "event",
+      "icon": "Sparkles",
+      "category": "Festival",
+      "description": "Harvest and Sikh new year celebration."
+    },
+    {
+      "date": "2026-04-14",
+      "name": "Ambedkar Jayanti",
+      "type": "event",
+      "icon": "PersonStanding",
+      "category": "Observance",
+      "description": "Birth anniversary of Dr. B. R. Ambedkar."
+    },
+    {
+      "date": "2026-04-15",
+      "name": "Bohag Bihu",
+      "type": "holiday",
+      "icon": "PartyPopper",
+      "category": "Restricted",
+      "description": "Assamese new year and spring festival."
+    },
+    {
+      "date": "2026-05-01",
+      "name": "Buddha Purnima",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Marks the birth, enlightenment, and mahaparinirvana of Gautama Buddha."
+    },
+    {
+      "date": "2026-05-01",
+      "name": "International Worker's Day",
+      "type": "event",
+      "icon": "Target",
+      "category": "Observance",
+      "description": "International labour observance."
+    },
+    {
+      "date": "2026-05-09",
+      "name": "Birthday of Rabindranath Tagore",
+      "type": "event",
+      "icon": "Cake",
+      "category": "Restricted",
+      "description": "Birth anniversary of Rabindranath Tagore."
+    },
+    {
+      "date": "2026-05-27",
+      "name": "Bakrid / Eid al-Adha",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Tentative moon-sighting based gazetted holiday."
+    },
+    {
+      "date": "2026-06-21",
+      "name": "June Solstice",
+      "type": "event",
+      "icon": "Sun",
+      "category": "Season",
+      "description": "Astronomical marker for peak summer."
+    },
+    {
+      "date": "2026-06-26",
+      "name": "Muharram / Ashura",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Islamic new year observance and gazetted holiday."
+    },
+    {
+      "date": "2026-07-16",
+      "name": "Jagannath Rath Yatra",
+      "type": "event",
+      "icon": "Mountain",
+      "category": "Restricted",
+      "description": "Annual chariot festival of Lord Jagannath."
+    },
+    {
+      "date": "2026-08-15",
+      "name": "Independence Day",
+      "type": "holiday",
+      "icon": "Flag",
+      "category": "Gazetted",
+      "description": "National holiday commemorating India's independence."
+    },
+    {
+      "date": "2026-08-26",
+      "name": "Onam",
+      "type": "holiday",
+      "icon": "PartyPopper",
+      "category": "Restricted",
+      "description": "Kerala harvest festival celebrating King Mahabali."
+    },
+    {
+      "date": "2026-08-26",
+      "name": "Milad-un-Nabi",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Birthday of Prophet Muhammad, observed as a gazetted holiday."
+    },
+    {
+      "date": "2026-08-28",
+      "name": "Raksha Bandhan",
+      "type": "holiday",
+      "icon": "HeartHandshake",
+      "category": "Restricted",
+      "description": "Festival honoring the bond between siblings."
+    },
+    {
+      "date": "2026-09-04",
+      "name": "Janmashtami",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Gazetted",
+      "description": "Celebrates the birth of Lord Krishna."
+    },
+    {
+      "date": "2026-09-14",
+      "name": "Ganesh Chaturthi",
+      "type": "holiday",
+      "icon": "PartyPopper",
+      "category": "Restricted",
+      "description": "Festival celebrating the birth of Lord Ganesha."
+    },
+    {
+      "date": "2026-09-23",
+      "name": "September Equinox",
+      "type": "event",
+      "icon": "Leaf",
+      "category": "Season",
+      "description": "Astronomical marker for the autumn transition."
+    },
+    {
+      "date": "2026-10-02",
+      "name": "Mahatma Gandhi Jayanti",
+      "type": "holiday",
+      "icon": "PersonStanding",
+      "category": "Gazetted",
+      "description": "Birth anniversary of Mahatma Gandhi."
+    },
+    {
+      "date": "2026-10-11",
+      "name": "First Day of Sharad Navratri",
+      "type": "event",
+      "icon": "Sparkles",
+      "category": "Observance",
+      "description": "Beginning of the Sharad Navratri festival."
+    },
+    {
+      "date": "2026-10-17",
+      "name": "First Day of Durga Puja Festivities",
+      "type": "event",
+      "icon": "Sparkles",
+      "category": "Observance",
+      "description": "Opening of major Durga Puja celebrations."
+    },
+    {
+      "date": "2026-10-18",
+      "name": "Maha Saptami",
+      "type": "holiday",
+      "icon": "Sparkles",
+      "category": "Restricted",
+      "description": "Durga Puja observance celebrated in many eastern states."
+    },
+    {
+      "date": "2026-10-19",
+      "name": "Maha Ashtami",
+      "type": "holiday",
+      "icon": "Sparkles",
+      "category": "Restricted",
+      "description": "Important Durga Puja and Navratri observance."
+    },
+    {
+      "date": "2026-10-20",
+      "name": "Dussehra",
+      "type": "holiday",
+      "icon": "Target",
+      "category": "Gazetted",
+      "description": "Marks the victory of good over evil."
+    },
+    {
+      "date": "2026-10-29",
+      "name": "Karva Chauth",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Restricted",
+      "description": "Traditional fasting festival observed by many married women."
+    },
+    {
+      "date": "2026-11-08",
+      "name": "Naraka Chaturdashi",
+      "type": "holiday",
+      "icon": "Sparkles",
+      "category": "Restricted",
+      "description": "Restricted holiday observed during the Deepavali period."
+    },
+    {
+      "date": "2026-11-08",
+      "name": "Diwali / Deepavali",
+      "type": "holiday",
+      "icon": "Sparkles",
+      "category": "Gazetted",
+      "description": "Festival of lights and one of India's most widely celebrated holidays."
+    },
+    {
+      "date": "2026-11-09",
+      "name": "Govardhan Puja",
+      "type": "holiday",
+      "icon": "Mountain",
+      "category": "Restricted",
+      "description": "Part of the Diwali festive cycle."
+    },
+    {
+      "date": "2026-11-11",
+      "name": "Bhai Duj",
+      "type": "holiday",
+      "icon": "HeartHandshake",
+      "category": "Restricted",
+      "description": "Celebrates the bond between brothers and sisters."
+    },
+    {
+      "date": "2026-11-15",
+      "name": "Chhath Puja",
+      "type": "holiday",
+      "icon": "Sun",
+      "category": "Restricted",
+      "description": "Major sun worship festival in eastern India."
+    },
+    {
+      "date": "2026-11-24",
+      "name": "Guru Nanak Jayanti",
+      "type": "holiday",
+      "icon": "Gift",
+      "category": "Gazetted",
+      "description": "Birth anniversary of Guru Nanak Dev Ji."
+    },
+    {
+      "date": "2026-12-22",
+      "name": "December Solstice",
+      "type": "event",
+      "icon": "Snowflake",
+      "category": "Season",
+      "description": "Astronomical marker for the winter transition."
+    },
+    {
+      "date": "2026-12-23",
+      "name": "Hazarat Ali's Birthday",
+      "type": "holiday",
+      "icon": "Moon",
+      "category": "Restricted",
+      "description": "Restricted holiday observed late in the year as per lunar cycle."
+    },
+    {
+      "date": "2026-12-24",
+      "name": "Christmas Eve",
+      "type": "holiday",
+      "icon": "Gift",
+      "category": "Restricted",
+      "description": "Restricted holiday ahead of Christmas."
+    },
+    {
+      "date": "2026-12-25",
+      "name": "Christmas Day",
+      "type": "holiday",
+      "icon": "Gift",
+      "category": "Gazetted",
+      "description": "Christian holiday celebrating the birth of Jesus Christ."
+    },
+    {
+      "date": "2026-12-31",
+      "name": "New Year's Eve",
+      "type": "event",
+      "icon": "Sparkles",
+      "category": "Observance",
+      "description": "Last evening of the year."
+    }
+  ]
 }

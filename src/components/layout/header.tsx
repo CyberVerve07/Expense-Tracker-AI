@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, LogIn, LogOut, User as UserIcon, LayoutDashboard } from 'lucide-react';
+import { Calendar, LogIn, LogOut, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { useFirebase } from '@/firebase';
 import { useRouter } from 'next/navigation';
@@ -24,6 +24,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const handleSignOut = async () => {
+      if (!auth) {
+          router.push('/auth/login');
+          return;
+      }
       await auth.signOut();
       router.push('/auth/login');
   }

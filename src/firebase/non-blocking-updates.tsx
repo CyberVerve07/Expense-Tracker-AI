@@ -19,11 +19,12 @@ import {FirestorePermissionError} from '@/firebase/errors';
  */
 export function setDocumentNonBlocking(docRef: DocumentReference, data: any, options?: SetOptions) {
   setDoc(docRef, data, options || {}).catch(error => {
+    const isMergeWrite = Boolean(options && 'merge' in options && options.merge);
     errorEmitter.emit(
       'permission-error',
       new FirestorePermissionError({
         path: docRef.path,
-        operation: options?.merge ? 'update' : 'create',
+        operation: isMergeWrite ? 'update' : 'create',
         requestResourceData: data,
       })
     )
