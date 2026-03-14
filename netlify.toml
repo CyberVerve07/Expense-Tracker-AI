@@ -1,6 +1,9 @@
 # Netlify configuration file for Next.js apps
 
 [build]
+  # The directory to change to before starting the build
+  base = "frontend"
+  
   # Command to build your Next.js site
   command = "npm run build"
   
