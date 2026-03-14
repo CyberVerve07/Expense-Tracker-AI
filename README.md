@@ -1,67 +1,47 @@
-# Yearly Tracker AI
+# Expense Tracker AI
 
-A personal organization tool built with Next.js, Firebase, and Google's Gemini models via Genkit. This project provides users with a yearly calendar, daily scheduling, and a suite of AI-powered tools for financial and personal well-being analysis.
+A modern, scalable expense tracking application built with Next.js, Genkit AI, and Firebase. This project is structured as a monorepo to clearly separate frontend aesthetics, backend intelligence, and API boundaries.
 
----
+## Tech Stack
 
-## ✨ Core Features
+- **Frontend:** Next.js, React, Tailwind CSS, Radix UI
+- **Backend / AI Services:** Genkit, Firebase, Node.js
+- **Database:** Firestore
+- **Tooling:** npm workspaces, TypeScript
 
-- **Interactive 2026 Calendar:** A full-year calendar with dynamic seasonal themes based on Indian seasons and pre-populated with major festivals.
-- **Secure User Authentication:** Firebase-powered sign-in with Google or Email/Password, with data protected by Firestore Security Rules.
-- **Daily Schedule Management:** Authenticated users can log daily tasks, budgets, and work/study hours, with all data securely stored in their personal Firestore profile.
-- **AI-Powered Analysis Suite:**
-  - **Diary Analysis:** Extracts insights on mood, stress, and productivity from journal entries.
-  - **Expense Optimization:** Provides budget analysis and saving recommendations based on income and expenses.
-  - **Wellness Insights:** Correlates diary entries and spending habits to offer a holistic view of well-being.
-- **Data Visualization:** Interactive charts to visualize mood trends and spending breakdowns.
+## Folder Structure
 
----
+```text
+/project-root
+│
+├── frontend/          # All Next.js UI code, components, and frontend configs
+├── backend/           # AI services (Genkit), DB configurations, server-side logic
+├── api/               # API routes, middleware, and validators (REST endpoints)
+├── docs/              # Project documentation (DOCUMENTATION.md, TODO.md)
+└── package.json       # Root workspace configuration
+```
 
-## 🚀 Tech Stack
+## Installation
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **UI:** React 19, ShadCN UI, Tailwind CSS
-- **Backend:** Firebase (Authentication & Firestore)
-- **Generative AI:** Google Gemini Models via Genkit
-- **Styling:** Tailwind CSS, Lucide React (Icons), Recharts (Charts)
+1. From the project root, install dependencies for all workspaces:
+   ```bash
+   npm install
+   ```
 
----
+## Development Commands
 
-## 🛠️ Getting Started
+- **Frontend Development:**
+  ```bash
+  cd frontend
+  npm run dev
+  ```
+- **Backend / AI Development:**
+  ```bash
+  cd backend
+  npm run dev
+  ```
 
-### Prerequisites
+## Deployment Instructions
 
-- Node.js (v20 or higher)
-- npm or a compatible package manager
-- Git
-
-### Installation & Setup
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/CyberVerve07/Expense-Tracker-AI.git
-    cd Expense-Tracker-AI
-    ```
-
-2.  **Install Dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Set Up Environment Variables:**
-    Create a `.env.local` file in the root directory and add your Firebase and Gemini API keys.
-    ```env
-    # Get this from your Firebase project settings
-    NEXT_PUBLIC_FIREBASE_CONFIG={...}
-
-    # Get this from Google AI Studio
-    GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-    ```
-
-4.  **Run the Development Server:**
-    ```bash
-    npm run dev
-    ```
-
-The application will be available at `http://localhost:3000`.
+* **Frontend:** Can be deployed to Vercel or Netlify. Ensure the root directory is set to `frontend/` if deploying via Vercel directly, or configured for monorepo setups.
+* **Backend / AI:** Deployable via Firebase App Hosting or Cloud Run depending on the setup configuration.
