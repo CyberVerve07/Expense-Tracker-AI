@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "genkit start -- tsx services/ai/dev.ts",
+    "watch": "genkit start -- tsx --watch services/ai/dev.ts"
+  },
+  "dependencies": {
+    "@genkit-ai/google-genai": "^1.20.0",
+    "dotenv": "^16.5.0",
+    "firebase": "^10.12.3",
+    "genkit": "^1.20.0",
+    "wav": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/wav": "^1.0.3",
+    "genkit-cli": "^1.20.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5"
+  }
+}
