@@ -12,11 +12,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AnalysisResultCard from './analysis-result-card';
-import { Loader2, Info } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Alert, AlertTitle, AlertDescription } from './ui/alert';
-import Link from 'next/link';
-import { useFirebase } from '@/firebase';
 
 const formSchema = z.object({
   diaryEntries: z.string().min(50, {
@@ -31,7 +28,7 @@ export default function WellnessInsights() {
   const [analysisResult, setAnalysisResult] = useState<WellnessInsightsOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { user } = useFirebase();
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,15 +63,7 @@ export default function WellnessInsights() {
         <CardDescription>Connect your daily life and spending to uncover wellness patterns.</CardDescription>
       </CardHeader>
       <CardContent>
-        {!user && (
-            <Alert className="mb-6 bg-primary/10 border-primary/20">
-                <Info className="h-4 w-4" />
-                <AlertTitle>You are not logged in</AlertTitle>
-                <AlertDescription>
-                    <Link href="/auth/login" className="font-bold underline">Log in</Link> to save your analysis and track progress over time.
-                </AlertDescription>
-            </Alert>
-        )}
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField

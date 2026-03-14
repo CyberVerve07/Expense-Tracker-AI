@@ -14,9 +14,6 @@ import { useEffect, useCallback } from "react";
 import type { DailySchedule, DailyScheduleFormData } from "@/lib/types";
 import { useFirebase, setDocumentNonBlocking } from "@/firebase";
 import { doc } from "firebase/firestore";
-import Link from "next/link";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { Info } from "lucide-react";
 
 const scheduleSchema = z.object({
     tasks: z.string().optional(),
@@ -42,7 +39,8 @@ function formatDateToId(date: Date): string {
 
 export default function DailyScheduleForm({ date, scheduleData, onClose }: DailyScheduleFormProps) {
     const { toast } = useToast();
-    const { user, firestore } = useFirebase();
+    const { firestore } = useFirebase();
+    const DEFAULT_USER_ID = 'default-user';
 
     const getSafeDefaultValues = useCallback((data: DailySchedule | null): DailyScheduleFormData => {
         return {
@@ -65,17 +63,17 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
 
 
     const handleSubmit = (data: DailyScheduleFormData) => {
-        if (!user || !firestore) {
+        if (!firestore) {
             toast({
                 variant: "destructive",
-                title: "Not logged in",
-                description: "You must be logged in to save a schedule.",
+                title: "Error",
+                description: "Firebase is not configured. Data cannot be saved.",
             });
             return;
         }
 
         const scheduleId = formatDateToId(date);
-        const scheduleRef = doc(firestore, 'users', user.uid, 'schedules', scheduleId);
+        const scheduleRef = doc(firestore, 'users', DEFAULT_USER_ID, 'schedules', scheduleId);
         
         const cleanData = Object.fromEntries(
           Object.entries(data).filter(([_, v]) => v !== undefined)
@@ -84,7 +82,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
         const dataToSave: Partial<DailySchedule> = {
             ...cleanData,
             id: scheduleId,
-            userId: user.uid,
+            userId: DEFAULT_USER_ID,
             date: date.toISOString(),
         };
 
@@ -100,16 +98,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                 {!user && (
-                    <Alert className="mb-4 bg-primary/10 border-primary/20">
-                        <Info className="h-4 w-4" />
-                        <AlertTitle>You are not logged in</AlertTitle>
-                        <AlertDescription>
-                            Your data will not be saved. <Link href="/auth/login" className="font-bold underline">Log in</Link> to save your progress.
-                        </AlertDescription>
-                    </Alert>
-                )}
-                <fieldset disabled={!user} className="grid gap-6 py-4">
+                <fieldset className="grid gap-6 py-4">
                     <div>
                         <h3 className="text-lg font-medium mb-4">Productivity</h3>
                         <div className="grid gap-4">
@@ -214,7 +203,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                     <DialogClose asChild>
                         <Button type="button" variant="secondary">Cancel</Button>
                     </DialogClose>
-                    <Button type="submit" disabled={!user}>Save Schedule</Button>
+                    <Button type="submit">Save Schedule</Button>
                 </DialogFooter>
             </form>
         </Form>

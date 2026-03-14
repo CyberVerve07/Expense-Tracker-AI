@@ -198,7 +198,8 @@ export default function CalendarView() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { user, firestore } = useFirebase();
+  const { firestore } = useFirebase();
+  const DEFAULT_USER_ID = 'default-user';
 
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -207,20 +208,20 @@ export default function CalendarView() {
 
   const scheduleId = selectedDate ? formatDateToId(selectedDate) : null;
   const scheduleRef = useMemoFirebase(() => {
-    if (!user || !scheduleId || !firestore) return null;
-    return doc(firestore, "users", user.uid, "schedules", scheduleId);
-  }, [user, scheduleId, firestore]);
+    if (!scheduleId || !firestore) return null;
+    return doc(firestore, "users", DEFAULT_USER_ID, "schedules", scheduleId);
+  }, [scheduleId, firestore]);
 
   const { data: scheduleData } = useDoc<DailySchedule>(scheduleRef);
 
   const monthSchedulesQuery = useMemoFirebase(() => {
-    if (!user || !firestore) return null;
+    if (!firestore) return null;
     return query(
-      collection(firestore, "users", user.uid, "schedules"),
+      collection(firestore, "users", DEFAULT_USER_ID, "schedules"),
       where("date", ">=", startOfMonth(currentDate).toISOString()),
       where("date", "<=", endOfMonth(currentDate).toISOString())
     );
-  }, [user, firestore, currentDate]);
+  }, [firestore, currentDate]);
 
   const { data: monthSchedules } = useCollection<DailySchedule>(monthSchedulesQuery);
 
