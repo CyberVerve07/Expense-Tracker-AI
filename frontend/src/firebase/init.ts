@@ -3,11 +3,13 @@
 import { firebaseConfig } from '@/firebase/config';
 import { getApp, getApps, initializeApp, type FirebaseApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 export function getSdks(firebaseApp: FirebaseApp) {
   return {
     firebaseApp,
     firestore: getFirestore(firebaseApp),
+    auth: getAuth(firebaseApp),
   };
 }
 

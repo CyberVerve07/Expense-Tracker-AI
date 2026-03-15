@@ -20,6 +20,11 @@ export function FirebaseClientProvider({ children }: FirebaseClientProviderProps
           areServicesAvailable: false,
           firebaseApp: null,
           firestore: null,
+          auth: null,
+          user: null,
+          loading: false,
+          signInWithGoogle: async () => {},
+          signOut: async () => {},
         }}
       >
         {children}
@@ -31,6 +36,7 @@ export function FirebaseClientProvider({ children }: FirebaseClientProviderProps
     <FirebaseProvider
       firebaseApp={firebaseServices.firebaseApp}
       firestore={firebaseServices.firestore}
+      auth={firebaseServices.auth}
     >
       {children}
     </FirebaseProvider>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '../theme-toggle';
+import { AuthButton } from '../auth/AuthButton';
 
 export default function Header() {
   const pathname = usePathname();
@@ -30,6 +31,7 @@ export default function Header() {
             <Link href="/" className={navLinkClasses('/')}>
                 Calendar
             </Link>
+            <AuthButton />
             <ThemeToggle />
         </nav>
       </div>
