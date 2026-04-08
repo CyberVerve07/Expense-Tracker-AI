@@ -15,9 +15,7 @@ A modern, scalable expense tracking application built with Next.js, Genkit AI, a
 /project-root
 │
 ├── frontend/          # All Next.js UI code, components, and frontend configs
-├── backend/           # AI services (Genkit), DB configurations, server-side logic
-├── api/               # API routes, middleware, and validators (REST endpoints)
-├── docs/              # Project documentation (DOCUMENTATION.md, TODO.md)
+├── backend/           # AI services, DB config, and documentation (inside backend/docs)
 └── package.json       # Root workspace configuration
 ```
 
