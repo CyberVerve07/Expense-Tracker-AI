@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Button } from "@/components/ui/button"
@@ -12,8 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useEffect, useCallback } from "react";
 import type { DailySchedule, DailyScheduleFormData } from "@/lib/types";
-import { useFirebase, setDocumentNonBlocking } from "@/firebase";
-import { doc } from "firebase/firestore";
+import { Coffee, GraduationCap, Briefcase, DollarSign, ListTodo, Sparkles } from "lucide-react";
 
 const scheduleSchema = z.object({
     tasks: z.string().optional(),
@@ -39,8 +37,7 @@ function formatDateToId(date: Date): string {
 
 export default function DailyScheduleForm({ date, scheduleData, onClose }: DailyScheduleFormProps) {
     const { toast } = useToast();
-    const { firestore } = useFirebase();
-    const DEFAULT_USER_ID = 'default-user';
+    const dateId = formatDateToId(date);
 
     const getSafeDefaultValues = useCallback((data: DailySchedule | null): DailyScheduleFormData => {
         return {
@@ -58,115 +55,135 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
     });
      
     useEffect(() => {
-        form.reset(getSafeDefaultValues(scheduleData));
-    }, [scheduleData, form, getSafeDefaultValues]);
+        // Try to load from localStorage if scheduleData is not provided
+        const saved = localStorage.getItem(`schedule_${dateId}`);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                form.reset(getSafeDefaultValues(parsed));
+            } catch (e) {
+                console.error("Local storage parse failed", e);
+            }
+        } else {
+            form.reset(getSafeDefaultValues(scheduleData));
+        }
+    }, [scheduleData, form, getSafeDefaultValues, dateId]);
 
 
     const handleSubmit = (data: DailyScheduleFormData) => {
-        if (!firestore) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Firebase is not configured. Data cannot be saved.",
-            });
-            return;
-        }
-
-        const scheduleId = formatDateToId(date);
-        const scheduleRef = doc(firestore, 'users', DEFAULT_USER_ID, 'schedules', scheduleId);
-        
-        const cleanData = Object.fromEntries(
-          Object.entries(data).filter(([_, v]) => v !== undefined)
-        );
-
-        const dataToSave: Partial<DailySchedule> = {
-            ...cleanData,
-            id: scheduleId,
-            userId: DEFAULT_USER_ID,
-            date: date.toISOString(),
-        };
-
-        setDocumentNonBlocking(scheduleRef, dataToSave, { merge: true });
+        // Save to localStorage
+        localStorage.setItem(`schedule_${dateId}`, JSON.stringify(data));
 
         toast({
-            title: "Schedule Saved!",
-            description: "Your schedule for the day has been saved.",
+            title: "Protocol Locked",
+            description: "Synchronized with local temporal database.",
         });
         onClose();
     }
 
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <fieldset className="grid gap-6 py-4">
-                    <div>
-                        <h3 className="text-lg font-medium mb-4">Productivity</h3>
-                        <div className="grid gap-4">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-10">
+                <div className="grid gap-8">
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3">
+                            <span className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
+                                <ListTodo className="h-5 w-5" />
+                            </span>
+                            <h3 className="text-xl font-outfit font-bold tracking-tight">Main Objectives</h3>
+                        </div>
+                        
+                        <div className="grid gap-6">
                             <FormField
                                 control={form.control}
                                 name="tasks"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="font-bold">Today's Tasks</FormLabel>
+                                        <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest">Tasks & Quotas</FormLabel>
                                         <FormControl>
-                                            <Textarea placeholder="What are your main tasks for today?" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="budget"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="font-bold">Today's Budget (₹)</FormLabel>
-                                        <FormControl>
-                                            <Input 
-                                              type="number" 
-                                              placeholder="e.g., 500" 
-                                              {...field} 
-                                              value={field.value ?? ''}
-                                              onChange={e => {
-                                                  const value = e.target.valueAsNumber;
-                                                  field.onChange(isNaN(value) ? undefined : value);
-                                              }}
+                                            <Textarea 
+                                                placeholder="Define your daily output..." 
+                                                className="bg-white/5 border-white/10 rounded-3xl min-h-[120px] p-5 focus:ring-cyan-500/30"
+                                                {...field} 
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                            <FormField
-                                control={form.control}
-                                name="importantWork"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="font-bold">Important Work</FormLabel>
-                                        <FormControl>
-                                            <Textarea placeholder="Any critical meetings or deadlines?" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <div className="grid grid-cols-2 gap-4">
+                            
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <FormField
+                                    control={form.control}
+                                    name="budget"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
+                                                <DollarSign className="h-3 w-3" />
+                                                Resource Usage (₹)
+                                            </FormLabel>
+                                            <FormControl>
+                                                <Input 
+                                                    type="number" 
+                                                    placeholder="Allocation..." 
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-lg font-outfit"
+                                                    {...field} 
+                                                    value={field.value ?? ''}
+                                                    onChange={e => {
+                                                        const value = e.target.valueAsNumber;
+                                                        field.onChange(isNaN(value) ? undefined : value);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                
+                                <FormField
+                                    control={form.control}
+                                    name="importantWork"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
+                                                <Sparkles className="h-3 w-3" />
+                                                High Priority
+                                            </FormLabel>
+                                            <FormControl>
+                                                <Input 
+                                                    placeholder="Critical vector..." 
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] font-outfit"
+                                                    {...field} 
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-6">
                                 <FormField
                                     control={form.control}
                                     name="studyHours"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="font-bold">Study Hours</FormLabel>
+                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
+                                                <GraduationCap className="h-3 w-3" />
+                                                Education (Hours)
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input 
-                                                  type="number" 
-                                                  placeholder="e.g., 2" 
-                                                  {...field} 
-                                                  value={field.value ?? ''} 
-                                                  onChange={e => {
-                                                      const value = e.target.valueAsNumber;
-                                                      field.onChange(isNaN(value) ? undefined : value);
-                                                  }}
+                                                    type="number" 
+                                                    placeholder="0" 
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl"
+                                                    {...field} 
+                                                    value={field.value ?? ''} 
+                                                    onChange={e => {
+                                                        const value = e.target.valueAsNumber;
+                                                        field.onChange(isNaN(value) ? undefined : value);
+                                                    }}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -178,17 +195,21 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                     name="workingHours"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="font-bold">Working Hours</FormLabel>
+                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
+                                                <Briefcase className="h-3 w-3" />
+                                                Sector-X (Hours)
+                                            </FormLabel>
                                             <FormControl>
                                                 <Input 
-                                                  type="number" 
-                                                  placeholder="e.g., 8" 
-                                                  {...field} 
-                                                  value={field.value ?? ''}
-                                                  onChange={e => {
-                                                      const value = e.target.valueAsNumber;
-                                                      field.onChange(isNaN(value) ? undefined : value);
-                                                  }}
+                                                    type="number" 
+                                                    placeholder="0" 
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl"
+                                                    {...field} 
+                                                    value={field.value ?? ''}
+                                                    onChange={e => {
+                                                        const value = e.target.valueAsNumber;
+                                                        field.onChange(isNaN(value) ? undefined : value);
+                                                    }}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -198,12 +219,13 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                             </div>
                         </div>
                     </div>
-                </fieldset>
-                <DialogFooter>
+                </div>
+
+                <DialogFooter className="gap-4 flex-col sm:flex-row pt-4">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary">Cancel</Button>
+                        <Button type="button" variant="ghost" className="rounded-full h-14 px-8 font-outfit text-white/40 hover:text-white">Decline Update</Button>
                     </DialogClose>
-                    <Button type="submit">Save Schedule</Button>
+                    <Button type="submit" className="rounded-full h-14 px-12 font-black font-outfit text-lg bg-cyan-500 hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] neon-glow-cyan">Synchronize Protocol</Button>
                 </DialogFooter>
             </form>
         </Form>
