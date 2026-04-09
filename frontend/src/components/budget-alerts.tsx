@@ -5,10 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, AlertTriangle, TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { Plus, AlertTriangle, TrendingUp, TrendingDown, DollarSign, Wallet } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface BudgetLimit {
   id: string;
@@ -42,7 +43,6 @@ export default function BudgetAlerts() {
 
   const addBudget = () => {
     if (newBudget.category && newBudget.limit) {
-      // Check if category already exists
       const existing = budgets.find(b => b.category === newBudget.category);
       if (existing) {
         setBudgets(budgets.map(b => 
@@ -75,9 +75,9 @@ export default function BudgetAlerts() {
   const getUsagePercentage = (spent: number, limit: number) => (spent / limit) * 100;
   
   const getStatusColor = (percentage: number) => {
-    if (percentage >= 100) return 'text-red-500';
-    if (percentage >= 80) return 'text-orange-500';
-    return 'text-green-500';
+    if (percentage >= 100) return 'text-rose-400';
+    if (percentage >= 80) return 'text-orange-400';
+    return 'text-cyan-400';
   };
 
   const getAlertLevel = (percentage: number) => {
@@ -103,34 +103,34 @@ export default function BudgetAlerts() {
   const alerts = getAlerts();
 
   return (
-    <Card className="w-full">
+    <Card className="glass-card border-white/5 bg-transparent overflow-hidden">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5" />
-              Budget Alerts
+        <div className="flex items-center justify-between gap-4">
+          <div className="space-y-1">
+            <CardTitle className="flex items-center gap-2 font-outfit text-xl">
+              <span className="p-1.5 rounded-lg bg-rose-500/10 text-rose-400">
+                 <AlertTriangle className="h-5 w-5" />
+              </span>
+              Perimeters
             </CardTitle>
-            <CardDescription>Set limits and get alerts when spending approaches limits</CardDescription>
+            <CardDescription className="text-white/40">Resource boundary thresholds</CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-2" />
-                Set Budget
+              <Button size="icon" className="h-10 w-10 rounded-full bg-white/10 hover:bg-white/20 border-white/10">
+                <Plus className="h-4 w-4" />
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="glass-card border-white/10 bg-black/90 text-white rounded-[40px] p-8">
               <DialogHeader>
-                <DialogTitle>Set Budget Limit</DialogTitle>
-                <DialogDescription>Set a monthly spending limit for a category</DialogDescription>
+                <DialogTitle className="text-3xl font-outfit font-black">Set Perimeter</DialogTitle>
+                <DialogDescription>Define a monthly resource cap for a specific vector.</DialogDescription>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="category">Category</Label>
+              <div className="grid gap-4 py-6">
+                <div className="space-y-2">
+                  <Label className="text-white/60 font-outfit">Allocation Category</Label>
                   <select
-                    id="category"
-                    className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    className="flex h-12 w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 text-sm focus:ring-1 focus:ring-rose-500 outline-none"
                     value={newBudget.category}
                     onChange={(e) => setNewBudget({ ...newBudget, category: e.target.value })}
                   >
@@ -139,65 +139,70 @@ export default function BudgetAlerts() {
                     ))}
                   </select>
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="limit">Monthly Limit (₹)</Label>
+                <div className="space-y-2">
+                  <Label className="text-white/60 font-outfit">Threshold Cap (₹)</Label>
                   <Input
-                    id="limit"
                     type="number"
                     value={newBudget.limit}
                     onChange={(e) => setNewBudget({ ...newBudget, limit: e.target.value })}
+                    className="bg-white/5 border-white/10 h-14 rounded-2xl text-lg font-outfit"
                     placeholder="5000"
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={addBudget}>Set Budget</Button>
+                <Button onClick={addBudget} className="w-full h-14 rounded-full font-bold text-lg bg-rose-500 hover:bg-rose-400">Lock Perimeter</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-8">
         {/* Overall Status */}
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="font-medium">Overall Budget Usage</span>
-            <span className={`text-sm font-medium ${getStatusColor(overallPercentage)}`}>
-              ₹{totalSpent.toLocaleString('en-IN')} / ₹{totalBudget.toLocaleString('en-IN')} ({overallPercentage.toFixed(1)}%)
-            </span>
+        <div className="p-5 rounded-3xl bg-white/5 border border-white/5">
+          <div className="flex justify-between items-end mb-4">
+            <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Aggregate Depletion</span>
+            <div className="text-right">
+                <p className="text-lg font-outfit font-bold text-white">₹{totalSpent.toLocaleString('en-IN')}</p>
+                <p className={cn("text-xs font-black", getStatusColor(overallPercentage))}>{overallPercentage.toFixed(1)}% CONSUMED</p>
+            </div>
           </div>
-          <Progress 
-            value={Math.min(overallPercentage, 100)} 
-            className="h-3"
-            style={{
-              backgroundColor: overallPercentage >= 100 ? '#ef4444' : overallPercentage >= 80 ? '#f97316' : '#22c55e'
-            }}
-          />
+          <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5">
+            <motion.div 
+              initial={{ width: 0 }} 
+              animate={{ width: `${Math.min(overallPercentage, 100)}%` }}
+              className={cn(
+                "h-full rounded-full transition-all duration-1000",
+                overallPercentage >= 100 ? "bg-rose-500 neon-glow-purple" : overallPercentage >= 80 ? "bg-orange-500" : "bg-cyan-500"
+              )}
+            />
+          </div>
         </div>
 
         {/* Alerts */}
         {alerts.length > 0 && (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {alerts.map(alert => (
-              <Alert key={alert.id} variant={alert.level === 'critical' ? 'destructive' : 'default'} className={
-                alert.level === 'warning' ? 'border-orange-500 bg-orange-50 dark:bg-orange-950' : ''
-              }>
-                {alert.level === 'critical' ? (
-                  <AlertTriangle className="h-4 w-4" />
-                ) : (
-                  <AlertTriangle className="h-4 w-4 text-orange-500" />
+              <motion.div 
+                key={alert.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={cn(
+                    "p-4 rounded-2xl border flex gap-3 items-start",
+                    alert.level === 'critical' ? "bg-rose-500/10 border-rose-500/20" : "bg-orange-500/10 border-orange-500/20"
                 )}
-                <AlertTitle>
-                  {alert.level === 'critical' ? 'Budget Exceeded!' : 'Budget Warning'}
-                </AlertTitle>
-                <AlertDescription>
-                  You've used {alert.percentage.toFixed(1)}% of your ₹{alert.limit.toLocaleString('en-IN')} {alert.category} budget.
-                  {alert.level === 'critical' 
-                    ? ` You're ₹${(alert.spent - alert.limit).toLocaleString('en-IN')} over budget!`
-                    : ` Only ₹${(alert.limit - alert.spent).toLocaleString('en-IN')} remaining.`
-                  }
-                </AlertDescription>
-              </Alert>
+              >
+                <AlertTriangle className={cn("h-5 w-5 shrink-0 mt-0.5", alert.level === 'critical' ? "text-rose-400" : "text-orange-400")} />
+                <div>
+                   <h5 className={cn("text-xs font-black uppercase tracking-widest", alert.level === 'critical' ? "text-rose-400" : "text-orange-400")}>
+                     {alert.level === 'critical' ? 'Containment Breach' : 'System Alert'}
+                   </h5>
+                   <p className="text-sm text-white/70 mt-1 leading-snug">
+                     {alert.category} is at {alert.percentage.toFixed(0)}%. 
+                     {alert.level === 'critical' ? " Exceeded by ₹" + (alert.spent - alert.limit).toLocaleString('en-IN') : " Approaching cap."}
+                   </p>
+                </div>
+              </motion.div>
             ))}
           </div>
         )}
@@ -211,53 +216,35 @@ export default function BudgetAlerts() {
             const isWarning = percentage >= 80;
             
             return (
-              <div
+              <motion.div
                 key={budget.id}
-                className={`rounded-lg border p-4 space-y-3 ${
-                  isOverBudget ? 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950' :
-                  isWarning ? 'border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950' :
-                  'bg-background'
-                }`}
+                whileHover={{ x: 4 }}
+                className={cn(
+                  "p-5 rounded-[28px] border bg-white/[0.02] transition-colors",
+                  isOverBudget ? "border-rose-500/30" : isWarning ? "border-orange-500/30" : "border-white/5"
+                )}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    {isOverBudget ? (
-                      <TrendingDown className="h-5 w-5 text-red-500" />
-                    ) : isWarning ? (
-                      <TrendingUp className="h-5 w-5 text-orange-500" />
-                    ) : (
-                      <DollarSign className="h-5 w-5 text-green-500" />
-                    )}
-                    <span className="font-medium">{budget.category}</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("p-2 rounded-xl bg-white/5", isOverBudget ? "text-rose-400" : "text-white/60")}>
+                        {isOverBudget ? <TrendingDown className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
+                    </div>
+                    <div>
+                        <p className="font-outfit font-bold text-sm tracking-tight">{budget.category}</p>
+                        <p className="text-[10px] text-white/30 uppercase tracking-[0.1em]">Alloc: ₹{budget.limit.toLocaleString('en-IN')}</p>
+                    </div>
                   </div>
-                  <span className={`text-sm font-medium ${getStatusColor(percentage)}`}>
-                    {percentage.toFixed(1)}%
-                  </span>
+                  <div className="text-right">
+                    <p className={cn("text-sm font-black", getStatusColor(percentage))}>{percentage.toFixed(0)}%</p>
+                    <p className="text-[10px] text-white/20 uppercase">Usage</p>
+                  </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      ₹{budget.spent.toLocaleString('en-IN')} spent
-                    </span>
-                    <span className="text-muted-foreground">
-                      ₹{Math.abs(remaining).toLocaleString('en-IN')} {remaining >= 0 ? 'left' : 'over'}
-                    </span>
-                  </div>
-                  <Progress 
-                    value={Math.min(percentage, 100)} 
-                    className="h-2"
-                    style={{
-                      backgroundColor: isOverBudget ? '#ef4444' : isWarning ? '#f97316' : '#22c55e'
-                    }}
-                  />
-                </div>
-
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <Input
                     type="number"
-                    placeholder="Add expense"
-                    className="h-8"
+                    placeholder="Input outflow..."
+                    className="h-10 bg-white/5 border-white/5 rounded-full px-5 text-sm font-outfit placeholder:text-white/20"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         const value = parseFloat((e.target as HTMLInputElement).value);
@@ -268,22 +255,16 @@ export default function BudgetAlerts() {
                       }
                     }}
                   />
-                  <Button 
-                    size="sm" 
-                    variant="outline"
-                  >
-                    Add
-                  </Button>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {budgets.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            <AlertTriangle className="h-12 w-12 mx-auto mb-4 opacity-50" />
-            <p>No budget limits set. Create budget limits to get alerts!</p>
+          <div className="text-center py-12 opacity-20">
+            <AlertTriangle className="h-10 w-10 mx-auto" />
+            <p className="text-[10px] font-black uppercase tracking-widest mt-4">No active perimeters</p>
           </div>
         )}
       </CardContent>
