@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/expense-analysis-flow.ts';
-import '@/ai/flows/wellness-insights-flow.ts';
-import '@/ai/flows/diary-analysis-flow.ts';
-import '@/ai/flows/tts-flow.ts';
+import './flows/expense-analysis-flow.ts';
+import './flows/wellness-insights-flow.ts';
+import './flows/diary-analysis-flow.ts';
+import './flows/tts-flow.ts';
