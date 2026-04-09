@@ -7,16 +7,17 @@
     "watch": "genkit start -- tsx --watch services/ai/dev.ts"
   },
   "dependencies": {
-    "@genkit-ai/google-genai": "^1.20.0",
+    "@genkit-ai/google-genai": "^1.16.1",
+    "@genkit-ai/next": "1.16.1",
     "dotenv": "^16.5.0",
-    "firebase": "^10.12.3",
-    "genkit": "^1.20.0",
+    "genkit": "^1.16.1",
+    "next": "15.5.15",
     "wav": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/wav": "^1.0.3",
-    "genkit-cli": "^1.20.0",
+    "genkit-cli": "^0.0.2",
     "tsx": "^4.7.1",
     "typescript": "^5"
   }
