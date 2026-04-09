@@ -1,40 +1,60 @@
 "use client";
 
-import { Calendar } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from '../theme-toggle';
-import { AuthButton } from '../auth/AuthButton';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+import { Sparkles, LayoutDashboard, Calendar, Settings } from 'lucide-react';
+
+const navigation = [
+  { name: 'Calendar', href: '/', icon: Calendar },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+];
 
 export default function Header() {
   const pathname = usePathname();
 
-  const navLinkClasses = (path: string) => cn(
-    "text-sm font-medium transition-colors h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md",
-    pathname === path 
-      ? 'bg-primary text-primary-foreground shadow-md'
-      : 'hover:bg-accent/80 hover:text-accent-foreground'
-  );
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center">
-          <Calendar className="h-7 w-7 mr-3 text-primary" />
-          <span className="font-bold text-xl font-headline">Yearly Tracker 2026</span>
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 pointer-events-none">
+      <motion.nav 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+        className="pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-full glass-card bg-background/60 backdrop-blur-md border-[var(--glass-border)] shadow-2xl neon-glow-cyan"
+      >
+        <Link href="/" className="flex items-center gap-2 mr-4">
+          <div className="p-2 rounded-full bg-primary text-primary-foreground">
+            <Sparkles className="h-4 w-4" />
+          </div>
+          <span className="font-outfit font-bold tracking-tight text-gradient-cyan hidden sm:inline-block">
+            AI Tracker
+          </span>
         </Link>
-        <nav className="flex items-center gap-2">
-            <Link href="/dashboard" className={navLinkClasses('/dashboard')}>
-                Expense Tracker
-            </Link>
-            <Link href="/" className={navLinkClasses('/')}>
-                Calendar
-            </Link>
-            <AuthButton />
-            <ThemeToggle />
-        </nav>
-      </div>
+        
+        <div className="flex items-center gap-1">
+          {navigation.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link key={item.name} href={item.href}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    "rounded-full px-4 transition-all duration-300 gap-2",
+                    isActive 
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg" 
+                      : "hover:bg-primary/10 text-muted-foreground"
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span className="hidden md:inline">{item.name}</span>
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      </motion.nav>
     </header>
   );
 }
