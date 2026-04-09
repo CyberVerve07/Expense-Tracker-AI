@@ -26,7 +26,12 @@ yarn-error.log*
 
 # local env files
 .env
-.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.local
 
 # vercel
 .vercel/
@@ -38,3 +43,30 @@ next-env.d.ts
 # genkit
 .genkit/
 .genkit-output/
+
+# Firebase
+.firebase/
+service-account.json
+firebase-debug.log*
+firestore-debug.log*
+pubsub-debug.log*
+ui-debug.log*
+
+# Secrets & Keys
+*.pem
+*.key
+*.pub
+secret.json
+secrets.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
