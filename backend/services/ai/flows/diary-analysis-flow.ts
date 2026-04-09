@@ -8,7 +8,7 @@
  * - DiaryAnalysisOutput - The return type for the diaryAnalysisAndRecommendations function.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai} from '../genkit';
 import {z} from 'genkit';
 
 const DiaryAnalysisInputSchema = z.object({
