@@ -1,5 +1,84 @@
 {
-  "node": {},
+  "node": {
+    "402b027ebfecfe62e2d6dcd946cca434ba6f246560": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Ctts-flow.ts%22%2C%5B%7B%22id%22%3A%22402b027ebfecfe62e2d6dcd946cca434ba6f246560%22%2C%22exportedName%22%3A%22textToSpeech%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Ctts-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\tts-flow.ts",
+      "exportedName": "textToSpeech"
+    },
+    "40dbdfa77415e15045f12bd611f07e1ed5fc3b3c16": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%2240dbdfa77415e15045f12bd611f07e1ed5fc3b3c16%22%2C%22exportedName%22%3A%22diaryAnalysisAndRecommendations%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%2C%7B%22id%22%3A%227f231232b0c0015fc6da60f14f607e05a777581b46%22%2C%22exportedName%22%3A%22diaryAnalysisFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%22407bf1342a93327ed71b82df1a538e196759596fdc%22%2C%22exportedName%22%3A%22expenseAnalysisAndBudgeting%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%2C%5B%7B%22id%22%3A%22401b7c32ff48cb6ff94856c516d0e569e4661f138b%22%2C%22exportedName%22%3A%22getWellnessInsights%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%2C%7B%22id%22%3A%227f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22%22%2C%22exportedName%22%3A%22wellnessInsightsFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\diary-analysis-flow.ts",
+      "exportedName": "diaryAnalysisAndRecommendations"
+    },
+    "407bf1342a93327ed71b82df1a538e196759596fdc": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%2240dbdfa77415e15045f12bd611f07e1ed5fc3b3c16%22%2C%22exportedName%22%3A%22diaryAnalysisAndRecommendations%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%2C%7B%22id%22%3A%227f231232b0c0015fc6da60f14f607e05a777581b46%22%2C%22exportedName%22%3A%22diaryAnalysisFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%22407bf1342a93327ed71b82df1a538e196759596fdc%22%2C%22exportedName%22%3A%22expenseAnalysisAndBudgeting%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%2C%5B%7B%22id%22%3A%22401b7c32ff48cb6ff94856c516d0e569e4661f138b%22%2C%22exportedName%22%3A%22getWellnessInsights%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%2C%7B%22id%22%3A%227f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22%22%2C%22exportedName%22%3A%22wellnessInsightsFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\expense-analysis-flow.ts",
+      "exportedName": "expenseAnalysisAndBudgeting"
+    },
+    "401b7c32ff48cb6ff94856c516d0e569e4661f138b": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%2240dbdfa77415e15045f12bd611f07e1ed5fc3b3c16%22%2C%22exportedName%22%3A%22diaryAnalysisAndRecommendations%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%2C%7B%22id%22%3A%227f231232b0c0015fc6da60f14f607e05a777581b46%22%2C%22exportedName%22%3A%22diaryAnalysisFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%22407bf1342a93327ed71b82df1a538e196759596fdc%22%2C%22exportedName%22%3A%22expenseAnalysisAndBudgeting%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%2C%5B%7B%22id%22%3A%22401b7c32ff48cb6ff94856c516d0e569e4661f138b%22%2C%22exportedName%22%3A%22getWellnessInsights%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%2C%7B%22id%22%3A%227f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22%22%2C%22exportedName%22%3A%22wellnessInsightsFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\wellness-insights-flow.ts",
+      "exportedName": "getWellnessInsights"
+    },
+    "7f231232b0c0015fc6da60f14f607e05a777581b46": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%2240dbdfa77415e15045f12bd611f07e1ed5fc3b3c16%22%2C%22exportedName%22%3A%22diaryAnalysisAndRecommendations%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%2C%7B%22id%22%3A%227f231232b0c0015fc6da60f14f607e05a777581b46%22%2C%22exportedName%22%3A%22diaryAnalysisFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%22407bf1342a93327ed71b82df1a538e196759596fdc%22%2C%22exportedName%22%3A%22expenseAnalysisAndBudgeting%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%2C%5B%7B%22id%22%3A%22401b7c32ff48cb6ff94856c516d0e569e4661f138b%22%2C%22exportedName%22%3A%22getWellnessInsights%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%2C%7B%22id%22%3A%227f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22%22%2C%22exportedName%22%3A%22wellnessInsightsFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\diary-analysis-flow.ts",
+      "exportedName": "diaryAnalysisFlow"
+    },
+    "7f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "(action-browser)/../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%2240dbdfa77415e15045f12bd611f07e1ed5fc3b3c16%22%2C%22exportedName%22%3A%22diaryAnalysisAndRecommendations%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%2C%7B%22id%22%3A%227f231232b0c0015fc6da60f14f607e05a777581b46%22%2C%22exportedName%22%3A%22diaryAnalysisFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cdiary-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%2C%5B%7B%22id%22%3A%22407bf1342a93327ed71b82df1a538e196759596fdc%22%2C%22exportedName%22%3A%22expenseAnalysisAndBudgeting%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cexpense-analysis-flow.ts%22%7D%5D%5D%2C%5B%22C%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%2C%5B%7B%22id%22%3A%22401b7c32ff48cb6ff94856c516d0e569e4661f138b%22%2C%22exportedName%22%3A%22getWellnessInsights%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%2C%7B%22id%22%3A%227f3e3cf2c6f5d8b747546cbff46738bdcd4d0fee22%22%2C%22exportedName%22%3A%22wellnessInsightsFlow%22%2C%22filename%22%3A%22..%2FC%3A%5C%5CUsers%5C%5Clenovo%5C%5CExpense-Tracker-AI%5C%5Cfrontend%5C%5Csrc%5C%5Cai%5C%5Cflows%5C%5Cwellness-insights-flow.ts%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "filename": "../C:\\Users\\lenovo\\Expense-Tracker-AI\\frontend\\src\\ai\\flows\\wellness-insights-flow.ts",
+      "exportedName": "wellnessInsightsFlow"
+    }
+  },
   "edge": {},
   "encryptionKey": "58+CNvv9dDh5IhTume4+06ms0iknKvzfeU+ddwBI6qI="
 }
