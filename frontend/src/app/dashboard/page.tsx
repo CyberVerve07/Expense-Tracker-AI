@@ -14,9 +14,12 @@ function DashboardFallback() {
   );
 }
 
+import ZenBackground from '@/components/quantum/zen-background';
+
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-transparent relative z-10">
+      <ZenBackground />
       <Header />
       <main className="flex-1 container py-8">
         <Suspense fallback={<DashboardFallback />}>

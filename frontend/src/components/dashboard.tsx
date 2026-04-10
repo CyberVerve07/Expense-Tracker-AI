@@ -10,7 +10,11 @@ import GoalTracker from './goal-tracker';
 import HabitTracker from './habit-tracker';
 import BudgetAlerts from './budget-alerts';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, BarChart3, PieChart, Activity } from 'lucide-react';
+import { Sparkles, BarChart3, PieChart, Activity, RefreshCw, ScanLine } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import ReceiptScanner from './quantum/receipt-scanner';
+import SubscriptionMatrix from './quantum/subscription-matrix';
+import QuantumHologram from './quantum/quantum-hologram';
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState('diary');
@@ -87,6 +91,13 @@ export default function Dashboard() {
                             <Activity className="h-4 w-4" />
                             <span className="hidden sm:inline">Wellness</span>
                         </TabsTrigger>
+                        <TabsTrigger 
+                            value="quantum" 
+                            className="rounded-full h-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 gap-2 font-medium bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-purple-500"
+                        >
+                            <Sparkles className="h-4 w-4" />
+                            <span className="hidden sm:inline">Quantum Lab</span>
+                        </TabsTrigger>
                     </TabsList>
                     
                     <div className="relative">
@@ -106,6 +117,49 @@ export default function Dashboard() {
                                 </TabsContent>
                                 <TabsContent value="wellness" className="mt-0 ring-offset-background focus-visible:outline-none">
                                     <WellnessInsights />
+                                </TabsContent>
+                                <TabsContent value="quantum" className="mt-0 ring-offset-background focus-visible:outline-none">
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                      <div className="space-y-8">
+                                         <Card className="glass-card overflow-hidden border-cyan-500/20 shadow-[0_0_40px_rgba(34,211,238,0.1)]">
+                                            <CardHeader>
+                                               <CardTitle className="font-outfit flex items-center gap-2">
+                                                  <ScanLine className="h-5 w-5 text-cyan-400" /> Auto-Vision Logging
+                                               </CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                               <ReceiptScanner />
+                                            </CardContent>
+                                         </Card>
+                                      </div>
+
+                                      <div className="space-y-8">
+                                         <Card className="glass-card overflow-hidden relative">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 z-0" />
+                                            <CardHeader className="relative z-10">
+                                               <CardTitle className="font-outfit flex items-center gap-2">
+                                                  <RefreshCw className="h-5 w-5" /> Subscription Orbit
+                                               </CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="relative z-10">
+                                               <SubscriptionMatrix />
+                                            </CardContent>
+                                         </Card>
+                                      </div>
+
+                                      <div className="md:col-span-2">
+                                         <Card className="glass-card overflow-hidden bg-black/50 border-white/5 shadow-2xl">
+                                            <CardHeader>
+                                               <CardTitle className="font-outfit flex items-center gap-2">
+                                                  <Sparkles className="h-5 w-5 text-purple-400" /> Holographic Spend Map
+                                               </CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="h-[400px]">
+                                               <QuantumHologram />
+                                            </CardContent>
+                                         </Card>
+                                      </div>
+                                   </div>
                                 </TabsContent>
                             </motion.div>
                         </AnimatePresence>

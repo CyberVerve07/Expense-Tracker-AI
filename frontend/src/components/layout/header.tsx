@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { Sparkles, LayoutDashboard, Calendar } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Calendar, Wind, Star } from 'lucide-react';
+import { useQuantumStore } from '@/store/quantum-store';
 
 const navigation = [
   { name: 'Calendar', href: '/', icon: Calendar },
@@ -14,6 +15,7 @@ const navigation = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { userProfile, zenMode, toggleZenMode } = useQuantumStore();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 pointer-events-none">
@@ -53,6 +55,29 @@ export default function Header() {
               </Link>
             );
           })}
+        </div>
+
+        <div className="flex items-center gap-2 ml-2 pl-4 border-l border-white/10">
+           <div className="hidden sm:flex flex-col items-end mr-2">
+             <span className="text-xs font-bold text-cyan-400">LVL {userProfile.level}</span>
+             <span className="text-[10px] text-muted-foreground">{userProfile.tier}</span>
+           </div>
+           
+           <div className="relative group cursor-help hidden sm:flex items-center justify-center p-2 rounded-full bg-cyan-500/10 text-cyan-400">
+             <Star className="h-4 w-4" />
+             <div className="absolute -bottom-8 bg-black/80 backdrop-blur px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+               {userProfile.xp} XP
+             </div>
+           </div>
+
+           <Button
+             variant="ghost"
+             size="icon"
+             onClick={toggleZenMode}
+             className={cn("rounded-full transition-all duration-500", zenMode ? "bg-cyan-400/20 text-cyan-400" : "text-muted-foreground hover:bg-white/10")}
+           >
+             <Wind className="h-4 w-4" />
+           </Button>
         </div>
       </motion.nav>
     </header>
