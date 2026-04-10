@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { User as FirebaseUser } from 'firebase/auth';
+import { saveUserData } from '@/lib/firebase/db';
 
 export interface Expense {
   id: string;
@@ -30,6 +32,13 @@ interface QuantumState {
   goals: Goal[];
   userProfile: UserProfile;
   zenMode: boolean;
+  user: {
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+    photoURL: string | null;
+  } | null;
+  isSyncing: boolean;
   
   addExpense: (expense: Omit<Expense, 'id'>) => void;
   deleteExpense: (id: string) => void;
@@ -37,6 +46,9 @@ interface QuantumState {
   updateGoalProgress: (id: string, amount: number) => void;
   addXP: (amount: number) => void;
   toggleZenMode: () => void;
+  setUser: (user: FirebaseUser | null) => void;
+  syncToCloud: () => Promise<void>;
+  setCloudData: (data: { expenses: Expense[], goals: Goal[], userProfile?: UserProfile }) => void;
 }
 
 const getTier = (level: number) => {
@@ -48,16 +60,47 @@ const getTier = (level: number) => {
 
 export const useQuantumStore = create<QuantumState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       expenses: [],
       goals: [],
       userProfile: { xp: 0, level: 1, tier: 'Quantum Initiate' },
       zenMode: false,
+      user: null,
+      isSyncing: false,
 
-      addExpense: (expense) =>
+      setUser: (user) => set({ 
+        user: user ? {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL
+        } : null 
+      }),
+
+      setCloudData: (data) => set((state) => ({
+        expenses: data.expenses || state.expenses,
+        goals: data.goals || state.goals,
+        userProfile: data.userProfile || state.userProfile
+      })),
+
+      syncToCloud: async () => {
+        const { user, expenses, goals, userProfile } = get();
+        if (user) {
+          set({ isSyncing: true });
+          try {
+            await saveUserData(user.uid, { expenses, goals });
+            // Note: In a real app we'd sync userProfile too, keeping it simple
+          } catch (e) {
+            console.error("Cloud sync failed", e);
+          } finally {
+            set({ isSyncing: false });
+          }
+        }
+      },
+
+      addExpense: (expense) => {
         set((state) => {
           const newExpense = { ...expense, id: Date.now().toString() };
-          // Add 10 XP config 
           const newXp = state.userProfile.xp + 10;
           const newLevel = Math.floor(newXp / 100) + 1;
           const newTier = getTier(newLevel);
@@ -65,19 +108,25 @@ export const useQuantumStore = create<QuantumState>()(
             expenses: [...state.expenses, newExpense],
             userProfile: { xp: newXp, level: newLevel, tier: newTier }
           };
-        }),
+        });
+        get().syncToCloud();
+      },
       
-      deleteExpense: (id) =>
+      deleteExpense: (id) => {
         set((state) => ({
           expenses: state.expenses.filter((e) => e.id !== id),
-        })),
+        }));
+        get().syncToCloud();
+      },
 
-      addGoal: (goal) =>
+      addGoal: (goal) => {
         set((state) => ({
           goals: [...state.goals, { ...goal, id: Date.now().toString(), currentAmount: 0 }],
-        })),
+        }));
+        get().syncToCloud();
+      },
 
-      updateGoalProgress: (id, amount) =>
+      updateGoalProgress: (id, amount) => {
         set((state) => {
           const newGoals = state.goals.map((g) => {
             if (g.id === id) {
@@ -100,20 +149,32 @@ export const useQuantumStore = create<QuantumState>()(
           }
 
           return { goals: newGoals };
-        }),
+        });
+        get().syncToCloud();
+      },
         
-      addXP: (amount) =>
+      addXP: (amount) => {
         set((state) => {
           const newXp = state.userProfile.xp + amount;
           const newLevel = Math.floor(newXp / 100) + 1;
           const newTier = getTier(newLevel);
           return { userProfile: { xp: newXp, level: newLevel, tier: newTier } };
-        }),
+        });
+        get().syncToCloud();
+      },
 
       toggleZenMode: () => set((state) => ({ zenMode: !state.zenMode })),
     }),
     {
       name: 'quantum-storage',
+      partialize: (state) => ({
+        expenses: state.expenses,
+        goals: state.goals,
+        userProfile: state.userProfile,
+        zenMode: state.zenMode,
+        // We don't persist 'user' or 'isSyncing' to localStorage to force fresh auth check
+      }),
     }
   )
 );
+

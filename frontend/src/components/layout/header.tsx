@@ -1,12 +1,15 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { Sparkles, LayoutDashboard, Calendar, Wind, Star } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Calendar, Wind, Star, LogIn, LogOut, Cloud } from 'lucide-react';
 import { useQuantumStore } from '@/store/quantum-store';
+import { signInWithGoogle, logout } from '@/lib/firebase/auth';
+import Image from 'next/image';
+import { useToast } from '@/hooks/use-toast';
 
 const navigation = [
   { name: 'Calendar', href: '/', icon: Calendar },
@@ -15,7 +18,18 @@ const navigation = [
 
 export default function Header() {
   const pathname = usePathname();
-  const { userProfile, zenMode, toggleZenMode } = useQuantumStore();
+  const router = useRouter();
+  const { user, userProfile, zenMode, toggleZenMode, isSyncing } = useQuantumStore();
+  const { toast } = useToast();
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    toast({ title: "Local Protocol Active", description: "You are now in offline draft mode." });
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 pointer-events-none">
@@ -70,11 +84,50 @@ export default function Header() {
              </div>
            </div>
 
+           {user && (
+             <div className={cn("hidden lg:flex items-center gap-2 p-1 pl-3 rounded-full bg-white/5 border border-white/10 ml-2", isSyncing && "animate-pulse")}>
+               <Cloud className={cn("h-3 w-3", isSyncing ? "text-cyan-400" : "text-white/40")} />
+               <span className="text-[10px] uppercase font-black tracking-tighter text-white/40">{isSyncing ? 'Syncing...' : 'Synced'}</span>
+             </div>
+           )}
+
+           <div className="h-6 w-[1px] bg-white/10 mx-2 hidden sm:block" />
+
+           {user ? (
+             <div className="flex items-center gap-3">
+               <div className="relative h-9 w-9 rounded-full overflow-hidden border-2 border-cyan-400/50 shadow-[0_0_10px_rgba(34,211,238,0.3)]">
+                 {user.photoURL ? (
+                    <Image src={user.photoURL} alt={user.displayName || "User"} fill className="object-cover" />
+                 ) : (
+                    <div className="w-full h-full bg-primary flex items-center justify-center text-xs font-bold">{user.displayName?.[0]}</div>
+                 )}
+               </div>
+               <Button
+                 variant="ghost"
+                 size="icon"
+                 onClick={handleLogout}
+                 className="rounded-full hover:bg-rose-500/10 hover:text-rose-400 text-muted-foreground transition-colors"
+               >
+                 <LogOut className="h-4 w-4" />
+               </Button>
+             </div>
+           ) : (
+             <Button
+               variant="ghost"
+               size="sm"
+               onClick={handleLogin}
+               className="rounded-full px-4 gap-2 hover:bg-cyan-400/10 text-cyan-400 border border-cyan-400/20"
+             >
+               <LogIn className="h-4 w-4" />
+               <span className="hidden sm:inline">Quantum Sync</span>
+             </Button>
+           )}
+
            <Button
              variant="ghost"
              size="icon"
              onClick={toggleZenMode}
-             className={cn("rounded-full transition-all duration-500", zenMode ? "bg-cyan-400/20 text-cyan-400" : "text-muted-foreground hover:bg-white/10")}
+             className={cn("rounded-full transition-all duration-500 ml-1", zenMode ? "bg-cyan-400/20 text-cyan-400" : "text-muted-foreground hover:bg-white/10")}
            >
              <Wind className="h-4 w-4" />
            </Button>

@@ -15,10 +15,12 @@ function DashboardFallback() {
 }
 
 import ZenBackground from '@/components/quantum/zen-background';
+import AuthSync from '@/components/firebase/auth-sync';
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col min-h-screen bg-transparent relative z-10">
+      <AuthSync />
       <ZenBackground />
       <Header />
       <main className="flex-1 container py-8">
