@@ -5,27 +5,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { DialogFooter, DialogClose } from "./ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { useEffect, useCallback } from "react";
-import type { DailySchedule, DailyScheduleFormData } from "@/lib/types";
-import { Coffee, GraduationCap, Briefcase, DollarSign, ListTodo, Sparkles, BookOpen, PenTool } from "lucide-react";
-import { motion } from "framer-motion";
-
-const scheduleSchema = z.object({
-    tasks: z.string().optional(),
-    budget: z.coerce.number().optional(),
-    importantWork: z.string().optional(),
-    studyHours: z.coerce.number().optional(),
-    workingHours: z.coerce.number().optional(),
-    diaryNote: z.string().optional(),
-})
+import { useState, useEffect } from "react";
+import { DollarSign, BookOpen, ListTodo, Briefcase, GraduationCap, Sparkles, Save, CheckCircle2 } from "lucide-react";
 
 interface DailyScheduleFormProps {
     date: Date;
-    scheduleData: DailySchedule | null;
     onClose: () => void;
 }
 
@@ -36,233 +20,178 @@ function formatDateToId(date: Date): string {
     return `${year}-${month}-${day}`;
 }
 
-
-export default function DailyScheduleForm({ date, scheduleData, onClose }: DailyScheduleFormProps) {
+export default function DailyScheduleForm({ date, onClose }: DailyScheduleFormProps) {
     const { toast } = useToast();
     const dateId = formatDateToId(date);
 
-    const getSafeDefaultValues = useCallback((data: DailySchedule | null): DailyScheduleFormData => {
-        return {
-            tasks: data?.tasks || '',
-            budget: data?.budget ?? undefined,
-            importantWork: data?.importantWork || '',
-            studyHours: data?.studyHours ?? undefined,
-            workingHours: data?.workingHours ?? undefined,
-            diaryNote: data?.diaryNote || '',
-        };
-    }, []);
+    // Simple state — no react-hook-form complexity
+    const [tasks, setTasks] = useState('');
+    const [budget, setBudget] = useState('');
+    const [importantWork, setImportantWork] = useState('');
+    const [studyHours, setStudyHours] = useState('');
+    const [workingHours, setWorkingHours] = useState('');
+    const [diaryNote, setDiaryNote] = useState('');
+    const [saved, setSaved] = useState(false);
 
-    const form = useForm<DailyScheduleFormData>({
-        resolver: zodResolver(scheduleSchema),
-        defaultValues: getSafeDefaultValues(scheduleData),
-    });
-     
+    // Load existing data when date changes
     useEffect(() => {
-        const saved = localStorage.getItem(`schedule_${dateId}`);
-        if (saved) {
+        const existing = localStorage.getItem(`schedule_${dateId}`);
+        if (existing) {
             try {
-                const parsed = JSON.parse(saved);
-                form.reset(getSafeDefaultValues(parsed));
+                const data = JSON.parse(existing);
+                setTasks(data.tasks || '');
+                setBudget(data.budget !== undefined ? String(data.budget) : '');
+                setImportantWork(data.importantWork || '');
+                setStudyHours(data.studyHours !== undefined ? String(data.studyHours) : '');
+                setWorkingHours(data.workingHours !== undefined ? String(data.workingHours) : '');
+                setDiaryNote(data.diaryNote || '');
             } catch (e) {
-                console.error("Local storage parse failed", e);
+                console.error('Failed to parse saved schedule', e);
             }
         } else {
-            form.reset(getSafeDefaultValues(scheduleData));
+            // Reset all fields for a new date
+            setTasks('');
+            setBudget('');
+            setImportantWork('');
+            setStudyHours('');
+            setWorkingHours('');
+            setDiaryNote('');
         }
-    }, [scheduleData, form, getSafeDefaultValues, dateId]);
+        setSaved(false);
+    }, [dateId]);
 
-
-    const handleSubmit = (data: DailyScheduleFormData) => {
+    const handleSave = () => {
+        const data = {
+            tasks,
+            budget: budget !== '' ? Number(budget) : undefined,
+            importantWork,
+            studyHours: studyHours !== '' ? Number(studyHours) : undefined,
+            workingHours: workingHours !== '' ? Number(workingHours) : undefined,
+            diaryNote,
+        };
         localStorage.setItem(`schedule_${dateId}`, JSON.stringify(data));
+        setSaved(true);
         toast({
-            title: "Protocol Locked",
-            description: "Synchronized with local temporal database.",
+            title: "✅ Saved!",
+            description: `Diary & schedule saved for ${date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}.`,
         });
-        onClose();
-    }
-
+        setTimeout(() => onClose(), 800);
+    };
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-10">
-                <motion.div 
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="grid gap-8"
+        <div className="space-y-8">
+            {/* Tasks Section */}
+            <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                    <span className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
+                        <ListTodo className="h-4 w-4" />
+                    </span>
+                    <h3 className="text-base font-bold text-white/80">Today's Tasks</h3>
+                </div>
+                <Textarea
+                    value={tasks}
+                    onChange={e => setTasks(e.target.value)}
+                    placeholder="What tasks do you want to complete today?"
+                    className="bg-white/5 border-white/10 rounded-2xl min-h-[90px] p-4 text-white placeholder:text-white/20 focus:border-cyan-500/40"
+                />
+            </div>
+
+            {/* Budget + Priority */}
+            <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest font-bold">
+                        <DollarSign className="h-3 w-3" /> Budget (₹)
+                    </label>
+                    <Input
+                        type="number"
+                        value={budget}
+                        onChange={e => setBudget(e.target.value)}
+                        placeholder="0"
+                        className="bg-white/5 border-white/10 h-12 rounded-2xl text-white placeholder:text-white/20"
+                    />
+                </div>
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest font-bold">
+                        <Sparkles className="h-3 w-3" /> Top Priority
+                    </label>
+                    <Input
+                        value={importantWork}
+                        onChange={e => setImportantWork(e.target.value)}
+                        placeholder="Most important thing today..."
+                        className="bg-white/5 border-white/10 h-12 rounded-2xl text-white placeholder:text-white/20"
+                    />
+                </div>
+            </div>
+
+            {/* Hours */}
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest font-bold">
+                        <GraduationCap className="h-3 w-3" /> Study Hours
+                    </label>
+                    <Input
+                        type="number"
+                        value={studyHours}
+                        onChange={e => setStudyHours(e.target.value)}
+                        placeholder="0"
+                        className="bg-white/5 border-white/10 h-12 rounded-2xl text-center text-white font-bold placeholder:text-white/20"
+                    />
+                </div>
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-white/40 text-xs uppercase tracking-widest font-bold">
+                        <Briefcase className="h-3 w-3" /> Work Hours
+                    </label>
+                    <Input
+                        type="number"
+                        value={workingHours}
+                        onChange={e => setWorkingHours(e.target.value)}
+                        placeholder="0"
+                        className="bg-white/5 border-white/10 h-12 rounded-2xl text-center text-white font-bold placeholder:text-white/20"
+                    />
+                </div>
+            </div>
+
+            {/* DIARY SECTION */}
+            <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                    <span className="p-2 rounded-xl bg-purple-400/10 text-purple-400">
+                        <BookOpen className="h-4 w-4" />
+                    </span>
+                    <div>
+                        <h3 className="text-base font-bold text-white/80">📔 Diary Entry</h3>
+                        <p className="text-white/30 text-xs">Write your thoughts, feelings, plans for the day...</p>
+                    </div>
+                </div>
+                <Textarea
+                    value={diaryNote}
+                    onChange={e => setDiaryNote(e.target.value)}
+                    placeholder="How was your day? What's on your mind? Write anything here..."
+                    className="bg-purple-900/10 border-purple-500/20 rounded-2xl min-h-[140px] p-4 text-white placeholder:text-white/20 focus:border-purple-500/50 focus:bg-purple-800/10 leading-relaxed"
+                />
+                {diaryNote.length > 0 && (
+                    <p className="text-purple-400/60 text-xs text-right">{diaryNote.length} characters</p>
+                )}
+            </div>
+
+            {/* Action Buttons */}
+            <DialogFooter className="gap-3 flex-col sm:flex-row pt-2">
+                <DialogClose asChild>
+                    <Button type="button" variant="ghost" className="rounded-full h-12 px-6 text-white/40 hover:text-white">
+                        Cancel
+                    </Button>
+                </DialogClose>
+                <Button
+                    type="button"
+                    onClick={handleSave}
+                    className="rounded-full h-12 px-10 font-bold bg-gradient-to-r from-cyan-500 to-purple-500 hover:opacity-90 transition-opacity shadow-lg flex items-center gap-2"
                 >
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <span className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
-                                <ListTodo className="h-5 w-5" />
-                            </span>
-                            <h3 className="text-xl font-outfit font-bold tracking-tight">Main Objectives</h3>
-                        </div>
-                        
-                        <div className="grid gap-6">
-                            <FormField
-                                control={form.control}
-                                name="tasks"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest">Tasks & Quotas</FormLabel>
-                                        <FormControl>
-                                            <Textarea 
-                                                placeholder="Define your daily output..." 
-                                                className="bg-white/5 border-white/10 rounded-3xl min-h-[100px] p-5 focus:ring-cyan-500/30 transition-all duration-300 focus:bg-white/10"
-                                                {...field} 
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <FormField
-                                    control={form.control}
-                                    name="budget"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
-                                                <DollarSign className="h-3 w-3" />
-                                                Resource Usage (₹)
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input 
-                                                    type="number" 
-                                                    placeholder="Allocation..." 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-lg font-outfit transition-all duration-300 focus:bg-white/10"
-                                                    {...field} 
-                                                    value={field.value ?? ''}
-                                                    onChange={e => {
-                                                        const value = e.target.valueAsNumber;
-                                                        field.onChange(isNaN(value) ? undefined : value);
-                                                    }}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                
-                                <FormField
-                                    control={form.control}
-                                    name="importantWork"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
-                                                <Sparkles className="h-3 w-3" />
-                                                High Priority
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input 
-                                                    placeholder="Critical vector..." 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] font-outfit transition-all duration-300 focus:bg-white/10"
-                                                    {...field} 
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-6">
-                                <FormField
-                                    control={form.control}
-                                    name="studyHours"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
-                                                <GraduationCap className="h-3 w-3" />
-                                                Education (Hours)
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input 
-                                                    type="number" 
-                                                    placeholder="0" 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl transition-all duration-300 focus:bg-white/10"
-                                                    {...field} 
-                                                    value={field.value ?? ''} 
-                                                    onChange={e => {
-                                                        const value = e.target.valueAsNumber;
-                                                        field.onChange(isNaN(value) ? undefined : value);
-                                                    }}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="workingHours"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
-                                                <Briefcase className="h-3 w-3" />
-                                                Sector-X (Hours)
-                                            </FormLabel>
-                                            <FormControl>
-                                                <Input 
-                                                    type="number" 
-                                                    placeholder="0" 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl transition-all duration-300 focus:bg-white/10"
-                                                    {...field} 
-                                                    value={field.value ?? ''}
-                                                    onChange={e => {
-                                                        const value = e.target.valueAsNumber;
-                                                        field.onChange(isNaN(value) ? undefined : value);
-                                                    }}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <span className="p-2 rounded-xl bg-purple-400/10 text-purple-400">
-                                <BookOpen className="h-5 w-5" />
-                            </span>
-                            <h3 className="text-xl font-outfit font-bold tracking-tight text-purple-100">Diary Reflections</h3>
-                        </div>
-
-                        <FormField
-                            control={form.control}
-                            name="diaryNote"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
-                                        <PenTool className="h-3 w-3" />
-                                        Internal Protocol Log
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Textarea 
-                                            placeholder="Write your thoughts, reflections, or a detailed plan for the day..." 
-                                            className="bg-purple-900/10 border-purple-500/20 rounded-[32px] min-h-[160px] p-6 focus:ring-purple-500/30 transition-all duration-500 focus:bg-purple-800/10 font-outfit text-white/80 leading-relaxed placeholder:text-white/20"
-                                            {...field} 
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                </motion.div>
-
-                <DialogFooter className="gap-4 flex-col sm:flex-row pt-4">
-                    <DialogClose asChild>
-                        <Button type="button" variant="ghost" className="rounded-full h-14 px-8 font-outfit text-white/40 hover:text-white">Decline Update</Button>
-                    </DialogClose>
-                    <Button type="submit" className="rounded-full h-14 px-12 font-black font-outfit text-lg bg-cyan-500 hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] neon-glow-cyan">Synchronize Protocol</Button>
-                </DialogFooter>
-            </form>
-        </Form>
-    )
+                    {saved ? (
+                        <><CheckCircle2 className="h-4 w-4" /> Saved!</>
+                    ) : (
+                        <><Save className="h-4 w-4" /> Save Entry</>
+                    )}
+                </Button>
+            </DialogFooter>
+        </div>
+    );
 }

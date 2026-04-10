@@ -60,7 +60,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Feature Grid - Minimalist Glass */}
+          {/* Feature Grid */}
           <motion.div 
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export default function Home() {
               description="Your daily thoughts turned into actionable insights for mood tracking and productivity."
             />
             <FeatureCard 
-              icon={<ShieldCheck className="h-6 w-6 text-magenta-400" />}
+              icon={<ShieldCheck className="h-6 w-6 text-pink-400" />}
               title="Wellness Score"
               description="Integrated wellness checkpoints mapped directly into your 2026 holiday calendar."
             />

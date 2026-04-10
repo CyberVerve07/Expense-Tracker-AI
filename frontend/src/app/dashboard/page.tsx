@@ -15,9 +15,6 @@ function DashboardFallback() {
 }
 
 export default function DashboardPage() {
-  // The login check has been removed to allow public access.
-  // Components inside will handle their own state based on whether a user is logged in.
-  
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />

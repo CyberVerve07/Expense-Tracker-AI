@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { Sparkles, LayoutDashboard, Calendar, Settings } from 'lucide-react';
+import { Sparkles, LayoutDashboard, Calendar } from 'lucide-react';
 
 const navigation = [
   { name: 'Calendar', href: '/', icon: Calendar },

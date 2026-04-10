@@ -60,8 +60,9 @@
     --neon-cyan: 180 100% 50%;
     --neon-purple: 270 100% 60%;
     --neon-magenta: 300 100% 50%;
-    --glass-background: 0 0% 100% / 0.05;
-    --glass-border: 0 0% 100% / 0.1;
+    --glass-background: 0 0% 100% / 0.03;
+    --glass-border: 0 0% 100% / 0.08;
+    --cinematic-glow: 270 100% 60% / 0.15;
   }
 }
 
@@ -115,11 +116,33 @@
   }
 
   .mesh-gradient {
-    background-color: #131313;
+    background-color: #050505;
     background-image: 
-      radial-gradient(at 0% 0%, hsla(180, 100%, 50%, 0.15) 0, transparent 50%), 
-      radial-gradient(at 100% 0%, hsla(270, 100%, 60%, 0.15) 0, transparent 50%), 
-      radial-gradient(at 100% 100%, hsla(300, 100%, 50%, 0.15) 0, transparent 50%), 
-      radial-gradient(at 0% 100%, hsla(180, 100%, 50%, 0.15) 0, transparent 50%);
+      radial-gradient(at 20% 10%, hsla(180, 100%, 50%, 0.1) 0, transparent 40%), 
+      radial-gradient(at 80% 20%, hsla(270, 100%, 60%, 0.1) 0, transparent 40%), 
+      radial-gradient(at 50% 50%, hsla(300, 100%, 50%, 0.05) 0, transparent 60%),
+      radial-gradient(at 0% 90%, hsla(180, 100%, 50%, 0.05) 0, transparent 40%);
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite linear;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
   }
 }
