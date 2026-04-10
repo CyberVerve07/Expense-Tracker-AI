@@ -7,6 +7,7 @@ export interface DailySchedule {
     importantWork?: string;
     studyHours?: number;
     workingHours?: number;
+    diaryNote?: string;
 }
 
 export type DailyScheduleFormData = Omit<DailySchedule, 'id' | 'userId' | 'date'>;

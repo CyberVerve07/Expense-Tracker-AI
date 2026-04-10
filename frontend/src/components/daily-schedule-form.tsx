@@ -11,7 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { useEffect, useCallback } from "react";
 import type { DailySchedule, DailyScheduleFormData } from "@/lib/types";
-import { Coffee, GraduationCap, Briefcase, DollarSign, ListTodo, Sparkles } from "lucide-react";
+import { Coffee, GraduationCap, Briefcase, DollarSign, ListTodo, Sparkles, BookOpen, PenTool } from "lucide-react";
+import { motion } from "framer-motion";
 
 const scheduleSchema = z.object({
     tasks: z.string().optional(),
@@ -19,6 +20,7 @@ const scheduleSchema = z.object({
     importantWork: z.string().optional(),
     studyHours: z.coerce.number().optional(),
     workingHours: z.coerce.number().optional(),
+    diaryNote: z.string().optional(),
 })
 
 interface DailyScheduleFormProps {
@@ -46,6 +48,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
             importantWork: data?.importantWork || '',
             studyHours: data?.studyHours ?? undefined,
             workingHours: data?.workingHours ?? undefined,
+            diaryNote: data?.diaryNote || '',
         };
     }, []);
 
@@ -55,7 +58,6 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
     });
      
     useEffect(() => {
-        // Try to load from localStorage if scheduleData is not provided
         const saved = localStorage.getItem(`schedule_${dateId}`);
         if (saved) {
             try {
@@ -71,9 +73,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
 
 
     const handleSubmit = (data: DailyScheduleFormData) => {
-        // Save to localStorage
         localStorage.setItem(`schedule_${dateId}`, JSON.stringify(data));
-
         toast({
             title: "Protocol Locked",
             description: "Synchronized with local temporal database.",
@@ -85,7 +85,12 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-10">
-                <div className="grid gap-8">
+                <motion.div 
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="grid gap-8"
+                >
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
                             <span className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
@@ -104,7 +109,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                         <FormControl>
                                             <Textarea 
                                                 placeholder="Define your daily output..." 
-                                                className="bg-white/5 border-white/10 rounded-3xl min-h-[120px] p-5 focus:ring-cyan-500/30"
+                                                className="bg-white/5 border-white/10 rounded-3xl min-h-[100px] p-5 focus:ring-cyan-500/30 transition-all duration-300 focus:bg-white/10"
                                                 {...field} 
                                             />
                                         </FormControl>
@@ -127,7 +132,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                                 <Input 
                                                     type="number" 
                                                     placeholder="Allocation..." 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-lg font-outfit"
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-lg font-outfit transition-all duration-300 focus:bg-white/10"
                                                     {...field} 
                                                     value={field.value ?? ''}
                                                     onChange={e => {
@@ -153,7 +158,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                             <FormControl>
                                                 <Input 
                                                     placeholder="Critical vector..." 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] font-outfit"
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] font-outfit transition-all duration-300 focus:bg-white/10"
                                                     {...field} 
                                                 />
                                             </FormControl>
@@ -177,7 +182,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                                 <Input 
                                                     type="number" 
                                                     placeholder="0" 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl"
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl transition-all duration-300 focus:bg-white/10"
                                                     {...field} 
                                                     value={field.value ?? ''} 
                                                     onChange={e => {
@@ -203,7 +208,7 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                                                 <Input 
                                                     type="number" 
                                                     placeholder="0" 
-                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl"
+                                                    className="bg-white/5 border-white/10 h-14 rounded-[20px] text-center font-outfit font-bold text-xl transition-all duration-300 focus:bg-white/10"
                                                     {...field} 
                                                     value={field.value ?? ''}
                                                     onChange={e => {
@@ -219,7 +224,37 @@ export default function DailyScheduleForm({ date, scheduleData, onClose }: Daily
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3">
+                            <span className="p-2 rounded-xl bg-purple-400/10 text-purple-400">
+                                <BookOpen className="h-5 w-5" />
+                            </span>
+                            <h3 className="text-xl font-outfit font-bold tracking-tight text-purple-100">Diary Reflections</h3>
+                        </div>
+
+                        <FormField
+                            control={form.control}
+                            name="diaryNote"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-white/40 font-outfit text-xs uppercase tracking-widest flex items-center gap-2">
+                                        <PenTool className="h-3 w-3" />
+                                        Internal Protocol Log
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Textarea 
+                                            placeholder="Write your thoughts, reflections, or a detailed plan for the day..." 
+                                            className="bg-purple-900/10 border-purple-500/20 rounded-[32px] min-h-[160px] p-6 focus:ring-purple-500/30 transition-all duration-500 focus:bg-purple-800/10 font-outfit text-white/80 leading-relaxed placeholder:text-white/20"
+                                            {...field} 
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                </motion.div>
 
                 <DialogFooter className="gap-4 flex-col sm:flex-row pt-4">
                     <DialogClose asChild>

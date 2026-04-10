@@ -1,84 +1,57 @@
 'use server';
 
-import {ai} from '../genkit';
-import {z} from 'genkit';
-
-const DiaryAnalysisInputSchema = z.object({
-  diaryEntries: z
-    .string()
-    .describe('A string containing all the diary entries to analyze.'),
-});
-export type DiaryAnalysisInput = z.infer<typeof DiaryAnalysisInputSchema>;
+import { getGroqClient } from '../groq';
+import { z } from 'zod';
 
 const DiaryAnalysisOutputSchema = z.object({
-  analysisSummary: z.string().describe('A 2-3 sentence overview of the diary analysis.'),
-  keyFindings: z
-    .array(z.string())
-    .describe('Key findings from the diary analysis with data points.'),
-  actionableRecommendations: z
-    .array(z.string())
-    .describe('Actionable recommendations based on the diary analysis.'),
-  celebratingWins: z.string().describe('Specific praise for positive patterns observed.'),
-  gentleChallenges: z.string().describe('Areas to improve, phrased supportively.'),
-  nextWeekForecast: z.string().describe('Predicted patterns and preventive suggestions.'),
+  analysisSummary: z.string(),
+  keyFindings: z.array(z.string()),
+  actionableRecommendations: z.array(z.string()),
+  celebratingWins: z.string(),
+  gentleChallenges: z.string(),
+  nextWeekForecast: z.string(),
 });
+
+export type DiaryAnalysisInput = { diaryEntries: string };
 export type DiaryAnalysisOutput = z.infer<typeof DiaryAnalysisOutputSchema>;
 
 export async function diaryAnalysisAndRecommendations(
   input: DiaryAnalysisInput
 ): Promise<DiaryAnalysisOutput> {
-  return diaryAnalysisFlow(input);
+  const groq = getGroqClient();
+
+  const systemPrompt = `You are a Personal AI Agent specialized in analyzing user diary entries.
+Analyze diary entries to identify mood trends, work patterns, and stress triggers.
+Provide personalized recommendations for improving productivity and overall well-being.
+Be empathetic and supportive. Use emojis for readability.
+You MUST respond with ONLY a valid JSON object, no markdown, no extra text.`;
+
+  const userPrompt = `Diary Entries:
+${input.diaryEntries}
+
+Respond with a JSON object with these exact fields:
+{
+  "analysisSummary": "2-3 sentence overview of the diary analysis",
+  "keyFindings": ["finding 1", "finding 2", "finding 3"],
+  "actionableRecommendations": ["recommendation 1", "recommendation 2", "recommendation 3", "recommendation 4", "recommendation 5"],
+  "celebratingWins": "specific praise for positive patterns observed",
+  "gentleChallenges": "areas to improve, phrased supportively",
+  "nextWeekForecast": "predicted patterns and preventive suggestions"
+}`;
+
+  const completion = await groq.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ],
+    temperature: 0.7,
+    response_format: { type: 'json_object' },
+  });
+
+  const raw = completion.choices[0]?.message?.content || '{}';
+  const parsed = DiaryAnalysisOutputSchema.parse(JSON.parse(raw));
+  return parsed;
 }
 
-const diaryAnalysisPrompt = ai.definePrompt({
-  name: 'diaryAnalysisPrompt',
-  input: {schema: DiaryAnalysisInputSchema},
-  output: {schema: DiaryAnalysisOutputSchema},
-  prompt: `You are a Personal AI Agent specialized in analyzing user diary entries.
-
-Analyze the following diary entries to identify mood trends, work patterns, and stress triggers. Provide personalized recommendations for improving productivity and overall well-being.
-
-Make sure the output is formatted as follows:
-
-📊 ANALYSIS SUMMARY
-[2-3 sentence overview]
-
-🎯 KEY FINDINGS
-
-[Finding 1 with data point]
-
-[Finding 2 with data point]
-
-[Finding 3 with data point]
-
-💡 ACTIONABLE RECOMMENDATIONS
-→ Recommendation 1 [Why + How]
-→ Recommendation 2 [Why + How]
-→ Recommendation 3 [Why + How]
-→ Recommendation 4 [Why + How]
-→ Recommendation 5 [Why + How]
-
-🎉 CELEBRATING YOUR WINS
-[Specific praise for positive patterns observed]
-
-⚠️ GENTLE CHALLENGES
-[Areas to improve, phrased supportively]
-
-📅 NEXT WEEK FORECAST
-[Predicted patterns + preventive suggestions]
-
-Diary Entries:
-{{{diaryEntries}}}`,
-});
-
-export const diaryAnalysisFlow = ai.defineFlow(
-  {
-    name: 'diaryAnalysisFlow',
-    inputSchema: DiaryAnalysisInputSchema,
-    outputSchema: DiaryAnalysisOutputSchema,
-  },
-  async input => {
-    const {output} = await diaryAnalysisPrompt(input);
-    return output!;
-  }
-);
+export const diaryAnalysisFlow = diaryAnalysisAndRecommendations;

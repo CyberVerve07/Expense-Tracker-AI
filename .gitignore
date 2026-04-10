@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 node_modules/
 .pnp
@@ -14,12 +12,14 @@ out/
 
 # production
 build/
+dist/
 
 # misc
 .DS_Store
 *.pem
-
-# debug
+*.key
+*.pub
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -47,26 +47,10 @@ next-env.d.ts
 # Firebase
 .firebase/
 service-account.json
-firebase-debug.log*
-firestore-debug.log*
-pubsub-debug.log*
-ui-debug.log*
-
-# Secrets & Keys
-*.pem
-*.key
-*.pub
-secret.json
-secrets.json
+*-debug.log*
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log

@@ -117,10 +117,16 @@ function formatDateToId(date: Date) {
 }
 
 export default function CalendarView() {
-  const [currentDate, setCurrentDate] = useState(new Date("2026-01-01"));
+  const [currentDate, setCurrentDate] = useState(() => {
+    const now = new Date();
+    // Default to current year/month, but ensure we are within the 2026 context if needed.
+    // Given the data is for 2026, let's stick to 2026 but use real month/day.
+    return new Date(2026, now.getMonth(), 1);
+  });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [daysWithNotes, setDaysWithNotes] = useState<Set<string>>(new Set());
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const currentMonth = currentDate.getMonth();
@@ -167,6 +173,27 @@ export default function CalendarView() {
       audioRef.current.play().catch(() => {});
     }
   }, [audioSrc]);
+
+  // Check for notes in localStorage for the current month
+  useEffect(() => {
+    const notesFound = new Set<string>();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(currentYear, currentMonth, i);
+      const dateId = formatDateToId(date);
+      const saved = localStorage.getItem(`schedule_${dateId}`);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.diaryNote || parsed.tasks || parsed.importantWork) {
+            notesFound.add(dateId);
+          }
+        } catch (e) {}
+      }
+    }
+    setDaysWithNotes(notesFound);
+  }, [currentMonth, currentYear, isDialogOpen]); // Re-run when dialog closes to update indicators
 
   const handleSeasonSound = async () => {
     try {
@@ -262,10 +289,15 @@ export default function CalendarView() {
               <AnimatePresence mode="wait">
                 <motion.div
                     key={currentMonth}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 20,
+                      duration: 0.5 
+                    }}
                     className="col-span-7 grid grid-cols-7 gap-2 md:gap-4"
                 >
                     {emptyDays.map((_, index) => (
@@ -301,13 +333,23 @@ export default function CalendarView() {
                                 )}>
                                     {day}
                                 </span>
-                                {dayEvents.length > 0 && (
-                                    <div className="flex gap-1">
-                                        {dayEvents.slice(0, 3).map((e, idx) => (
-                                            <div key={idx} className={cn("h-1.5 w-1.5 rounded-full", categoryBadgeStyles[e.category].split(' ')[0])} />
-                                        ))}
-                                    </div>
-                                )}
+                                
+                                <div className="flex flex-col items-center gap-1.5 w-full">
+                                    {daysWithNotes.has(dateId) && (
+                                        <motion.div 
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className="h-1 w-1 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"
+                                        />
+                                    )}
+                                    {dayEvents.length > 0 && (
+                                        <div className="flex gap-1 justify-center">
+                                            {dayEvents.slice(0, 3).map((e, idx) => (
+                                                <div key={idx} className={cn("h-1 w-1 rounded-full", categoryBadgeStyles[e.category].split(' ')[0])} />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </motion.button>
                         );
