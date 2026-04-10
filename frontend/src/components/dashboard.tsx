@@ -69,7 +69,7 @@ export default function Dashboard() {
                 </div>
 
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 h-16 glass-card p-1.5 rounded-full overflow-hidden mb-12">
+                    <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 h-16 glass-card p-1.5 rounded-full overflow-hidden mb-12">
                         <TabsTrigger 
                             value="diary" 
                             className="rounded-full h-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 gap-2 font-medium"

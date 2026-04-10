@@ -24,12 +24,16 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      await signInWithGoogle();
-      toast({
-        title: "Secure Entry Granted",
-        description: "Welcome to the Quantum Protocol.",
-      });
-      router.push("/dashboard");
+      const result = await signInWithGoogle();
+      if (result) {
+        // Only show toast and redirect if login actually completed
+        toast({
+          title: "Secure Entry Granted",
+          description: "Welcome to the Quantum Protocol.",
+        });
+        router.push("/dashboard");
+      }
+      // If result is null, user cancelled — do nothing
     } catch (error) {
       toast({
         variant: "destructive",

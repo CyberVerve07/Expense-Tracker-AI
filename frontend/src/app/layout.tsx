@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
+import AuthSync from '@/components/firebase/auth-sync';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
@@ -26,6 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AuthSync />
           {children}
           <Toaster />
         </ThemeProvider>

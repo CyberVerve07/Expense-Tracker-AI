@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Sparkles, LayoutDashboard, Calendar, Wind, Star, LogIn, LogOut, Cloud } from 'lucide-react';
 import { useQuantumStore } from '@/store/quantum-store';
-import { signInWithGoogle, logout } from '@/lib/firebase/auth';
+import { logout } from '@/lib/firebase/auth';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 

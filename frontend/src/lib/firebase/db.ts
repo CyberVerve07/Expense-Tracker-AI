@@ -2,11 +2,7 @@ import {
   doc, 
   setDoc, 
   getDoc, 
-  updateDoc, 
-  collection, 
-  onSnapshot,
-  query,
-  orderBy
+  onSnapshot
 } from "firebase/firestore";
 import { db } from "./config";
 import { Expense, Goal } from "@/store/quantum-store";
@@ -14,6 +10,7 @@ import { Expense, Goal } from "@/store/quantum-store";
 const USER_DATA_COLLECTION = "users";
 
 export const saveUserData = async (uid: string, data: { expenses: Expense[], goals: Goal[] }) => {
+  if (!db) return;
   try {
     const userDocRef = doc(db, USER_DATA_COLLECTION, uid);
     await setDoc(userDocRef, {
@@ -27,6 +24,7 @@ export const saveUserData = async (uid: string, data: { expenses: Expense[], goa
 };
 
 export const getUserData = async (uid: string) => {
+  if (!db) return null;
   try {
     const userDocRef = doc(db, USER_DATA_COLLECTION, uid);
     const userDoc = await getDoc(userDocRef);
@@ -41,6 +39,7 @@ export const getUserData = async (uid: string) => {
 };
 
 export const subscribeToUserData = (uid: string, callback: (data: { expenses: Expense[], goals: Goal[] }) => void) => {
+  if (!db) return () => {};
   const userDocRef = doc(db, USER_DATA_COLLECTION, uid);
   return onSnapshot(userDocRef, (doc) => {
     if (doc.exists()) {
